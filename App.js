@@ -47,6 +47,7 @@ import {WaitScreen} from './component/Login/WaitScreen'
 import { SucessStatus } from './component/StatusActions/SucessStatus';
 import { FailStatus } from './component/StatusActions/FailStatus';
 import { WaitingForApproval } from './component/StatusActions/WaitingForApproval';
+const dotenv = require('dotenv')
 
 
 const Stack = createStackNavigator()

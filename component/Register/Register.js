@@ -94,6 +94,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                             <View style={{marginTop: 25}}>
                                 <Text style={RegisterUser.reguse_text_upinput}>Fecha de Nacimiento</Text>
                                 <Pressable style={RegisterUser.reguse_date_picker_container} onPress={()=>(setDModal(true),setBirthSelected(true))}>
+                                    {console.log(birth)}
                                     {!birthWasSelected?
                                     <Text style={RegisterUser.reguse_text_upinput}>Seleccione su fecha de nacimiento</Text>
                                     :<Text style={RegisterUser.reguse_text}>{''+birth.getDate()+' / '+birth.getMonth()+' / '+birth.getFullYear()}</Text>}    

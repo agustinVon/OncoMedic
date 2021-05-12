@@ -1,12 +1,11 @@
 import React from 'react'
 import {Pressable,Text,StyleSheet} from 'react-native'
 
-const ItemDRButtons = ({item,switchSwiper,handlePress}) => {
+const ItemDRButtons = ({item,handlePress}) => {
 
 
     const optionSelected = (option) =>{
         handlePress(option);
-        switchSwiper()
     }
 
     return (

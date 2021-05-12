@@ -61,7 +61,7 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
 
     const places=[{label: 'Austral', value:0,}]
 
-    const etnias=[{label: 'Caucasico', value:0}]
+    const etnias=[{label: 'Caucasico', value:0},{label: 'Hispano', value:1},{label: 'Asiatico', value:2}]
     
     return (
         <SafeAreaView style={RegisterUser.reguse_cont_background}>
