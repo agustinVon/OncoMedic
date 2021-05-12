@@ -27,7 +27,7 @@ const default_user ={
         acv:false,
         inf:false
     },
-    avatar:"1",
+    avatar:1,
     status:"Pendiente",
     cancer:""
 }

@@ -6,6 +6,8 @@ import {DailyRegisterButtons} from './DailyRegisterButtons.js'
 import firestore from '@react-native-firebase/firestore';
 import { connect } from 'react-redux';
 import { Alert } from 'react-native';
+import {DailyRegisterOptional} from './DailyRegisterOptional'
+import {DailyRegisterBut} from './DailyRegisterBut'
 
 
 
@@ -13,13 +15,20 @@ const DailyRegister = ({navigation,idR}) => {
     const swiper = React.useRef(null);
 
     const [id,setId] = useState(idR)
-    const [mood,setMood] = useState("");
-    const [sad,setSad] = useState("")
+    const [mood,setMood] = useState('');
+    const [sad,setSad] = useState('')
     const [hungry,setHungry] = useState('');
     const [hid,setHid] = useState('');
     const [run,setRun] = useState('');
     const [social,setSocial] = useState('');
     const [isLoading, setLoading] = useState(false)
+
+    const buttonsText = {
+        Apetito:['Menos de lo normal', 'Normal', 'Mas de lo normal'],
+        Hidratacion:['Menos de 1L','Entre 1L y 2L','Mas de 2L'],
+        ActividadFisica:['No','Menos de 30 min','Entre 30 y 60 min'],
+        Social:['No. No vi a nadie','Si. Limitado a pocas interacciones interpersonales','Si. Vi a conocidos y amigos mas de una hora','Si. Vi a conocidos y amigos mas de 2 horas']
+    }
 
     useEffect(()=>{
         setId(id)
@@ -31,7 +40,12 @@ const DailyRegister = ({navigation,idR}) => {
         }
     },[social])
 
-    const cant_screen = 5;
+    useEffect(()=>{
+        if(mood !== '' || sad !== '' || hungry !== '' || hid !== '' || run !== ''){
+            swiper.current.scrollBy(1)
+        }
+    },[mood,sad,hungry,hid,run])
+
 
     const swipeNext = (i) =>{
         console.log('mood ' + mood)
@@ -83,12 +97,12 @@ const DailyRegister = ({navigation,idR}) => {
         <ActivityIndicator animating={true} color={"#FFFFFF"} size='large' />
         </View>,
         <Swiper ref={swiper} loop={false} activeDotColor={"#FFB13A"}>
-            <DailyRegisterOptions type={"Que tan animado te encuentras hoy? \n (1 es muy mal 10 es muy bien)"} imageProp={require("../../img/ic_child.png")} switchSwiper={swipeNext} handleValue={setMood} index={0}/>
-            <DailyRegisterOptions type={"Sentiste algun dolor hoy?"} imageProp={require("../../img/ic_sad.png")} switchSwiper={swipeNext} handleValue={setSad} index={1}/>
-            <DailyRegisterButtons type={"A"} text={"¿Tuviste apetito?"}imageProp={require("../../img/ic_utensils.png")} switchSwiper={swipeNext} handleValue={setHungry} index={2}/>
-            <DailyRegisterButtons type={"H"} text={"¿Te hidrataste?"} imageProp={require("../../img/ic_water.png")} switchSwiper={swipeNext} handleValue={setHid} index={3}/>
-            <DailyRegisterButtons type={"AF"} text={'Hiciste actividad fisica?'} imageProp={require("../../img/ic_run.png")} switchSwiper={swipeNext} handleValue={setRun} index={4}/>
-            <DailyRegisterButtons type={"S"} text={"Tuviste contacto social?"} imageProp={require("../../img/ic_social.png")} switchSwiper={swipeNext} handleValue={setSocial} index={5}/>
+            <DailyRegisterOptional text={'Que tan animado te encuentras hoy? \n (1 es muy mal 10 es muy bien)'} image={require("../../img/ic_child.png")} setValue={setMood}/>
+            <DailyRegisterOptional text={'Sentiste algun dolor hoy?'} image={require("../../img/ic_sad.png")} setValue={setSad}/>
+            <DailyRegisterBut options={buttonsText.Apetito} text={"¿Tuviste apetito?"} image={require("../../img/ic_utensils.png")} setValue={setHungry}/>
+            <DailyRegisterBut options={buttonsText.Hidratacion} text={"¿Te hidrataste?"} image={require("../../img/ic_water.png")} setValue={setHid}/>
+            <DailyRegisterBut options={buttonsText.ActividadFisica} text={"Hiciste actividad fisica?"} image={require("../../img/ic_run.png")} setValue={setRun}/>
+            <DailyRegisterBut options={buttonsText.Social} text={"Tuviste contacto social?"} image={require("../../img/ic_social.png")} setValue={setSocial}/>
         </Swiper>
     )
 }
