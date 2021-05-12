@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, SafeAreaView,Image,Dimensions,View,Text,Pressable} from 'react-native'
 import { connect } from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
+import { Alert } from 'react-native';
 
 const {width} = Dimensions.get("window")
 
@@ -19,7 +20,7 @@ const RegisterIllustrator = ({navigation,userData,goHomeFunction}) => {
         .doc(user.id);
         console.log('user : '+user)
 
-        userDocument != null ?
+        userDocument == null?
         firestore()
         .collection('users')
         .doc(user.id)
@@ -29,6 +30,15 @@ const RegisterIllustrator = ({navigation,userData,goHomeFunction}) => {
         .then(() => {
             console.log('User added!');
         }):
+        Alert.alert(
+            "Error",
+            "Id ya existe",
+            [
+                {
+                    text: 'OK',
+                }
+            ]
+        )
         console.log('err id exists already')
     }
 
