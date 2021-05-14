@@ -30,6 +30,10 @@ const Register = ({navigation,setPersonalInformationAction}) => {
         const email_aux = email;
         email_aux.length > 0 ? email_aux.includes("@") ? setEValidate(true) : setEValidate(false) : setEValidate(true)
     }, [email])
+
+    useEffect(()=>{
+        
+    }, [gender])
     
 
 
@@ -94,12 +98,13 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                             <View style={{marginTop: 25}}>
                                 <Text style={RegisterUser.reguse_text_upinput}>Fecha de Nacimiento</Text>
                                 <Pressable style={RegisterUser.reguse_date_picker_container} onPress={()=>(setDModal(true),setBirthSelected(true))}>
-                                    {console.log(birth)}
-                                    {console.log(birthWasSelected)}
-                                    {!birthWasSelected?
-                                    <Text style={RegisterUser.reguse_text_upinput}>Seleccione su fecha de nacimiento</Text>
+                                    {console.log('fecha: '+birth)}
+                                    {console.log('fue seleccionada la fecha: '+birthWasSelected)}
+                                    {birthWasSelected?
+                                    <Text style={RegisterUser.reguse_text}> {''+birth.getDate()+' / '+birth.getMonth()+' / '+birth.getFullYear()} </Text>
                                     :
-                                    <Text style={RegisterUser.reguse_text}> {''+birth.getDate()+' / '+birth.getMonth()+' / '+birth.getFullYear()} </Text>}    
+                                    <Text style={RegisterUser.reguse_text_upinput}>Seleccione su fecha de nacimiento</Text>
+                                    }    
                                 </Pressable>
                             </View>
                             <ButtonCustomeOrange title={"Continuar"} handleFunction={handleSwitchToRegisterMedic} marginT={{marginTop: 50}}/>
@@ -166,6 +171,7 @@ const RegisterUser = StyleSheet.create({
     },
     reguse_text:{
         fontSize: 17,
+        zIndex: 10000,
     },
     reguse_textInputRed:{
         marginTop: 6,

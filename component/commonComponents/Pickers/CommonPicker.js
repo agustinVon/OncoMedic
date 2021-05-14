@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native'
 import { Platform, Text } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { Pressable } from 'react-native'
+import {GeneralStyle} from '../../styles/GeneralStyle'
 
 export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
 
@@ -25,13 +26,16 @@ export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
         :
         <Pressable style={defaultValue!=null?CustomPickerStyle.not_picked : CustomPickerStyle.picked} onPress={()=>setValue(items[0])}>
             {defaultValue == null?
+            
+            <View style={{padding:10,justifyContent:'center'}}>
+                <Text style={GeneralStyle.register_text_not_selected}>
+                    Seleccione su genero
+                </Text>
+            </View>
+            :
+
             <Picker
-            selectedValue={defaultValue}
-            onValueChange={(itemValue) => setValue(itemValue)}>
-                <Picker.Item label={placeHolder} value={null} style={CustomPickerStyle.place_holder_style_not_picked}/>
-                {items.map((item) => <Picker.Item label={item.label} value={item.value}/>)}
-            </Picker>:
-            <Picker
+            {...console.log(defaultValue)}
             selectedValue={defaultValue}
             onValueChange={(itemValue) => setValue(itemValue)}>
                 {items.map((item) => <Picker.Item label={item.label} value={item.value}/>)}
@@ -62,7 +66,8 @@ const CustomPickerStyle= StyleSheet.create({
         borderBottomLeftRadius:10, 
         borderBottomRightRadius:10,
         height:50,
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
+        
     },
 
     picked:{
