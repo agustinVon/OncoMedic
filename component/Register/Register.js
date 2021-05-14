@@ -101,7 +101,9 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                                     {console.log('fecha: '+birth)}
                                     {console.log('fue seleccionada la fecha: '+birthWasSelected)}
                                     {birthWasSelected?
-                                    <Text style={RegisterUser.reguse_text}> {''+birth.getDate()+' / '+birth.getMonth()+' / '+birth.getFullYear()} </Text>
+                                    <View>
+                                        <Text style={RegisterUser.reguse_text}> {''+birth.getDate()+' / '+birth.getMonth()+' / '+birth.getFullYear()} </Text>
+                                    </View>
                                     :
                                     <Text style={RegisterUser.reguse_text_upinput}>Seleccione su fecha de nacimiento</Text>
                                     }    
@@ -166,8 +168,7 @@ const RegisterUser = StyleSheet.create({
         height:50,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: "#E3E3E3",
-        justifyContent:'center'   
+        backgroundColor: "#E3E3E3",  
     },
     reguse_text:{
         fontSize: 17,
