@@ -16,7 +16,7 @@ const RegisterElementsMore = ({type,nextScreen,setSmokeOptionAction,setMedOption
     const smoke_q = ["¿Cantidad por dia?","¿Cuantos meses fumaste?"]
     const dbt_q = ["Insulina","Metmorfina", "Otra"]
     const [image,setImage] = useState("")
-    const [med, setMed] = useState(["Hipertension","EPOC",
+    const [med, setMed] = useState(["Hipertensión","EPOC",
                                    "ACV","Infarto"])
     
     const [qnt, setQnt] = useState("")

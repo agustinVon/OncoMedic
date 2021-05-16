@@ -100,7 +100,7 @@ const Login = ({navigation, setUser}) => {
             <View style={LoginStyle.log_cont_login}>
                 <View style={LoginStyle.log_cont_login_inside}>
                     <Text style={LoginStyle.log_text_log}>Iniciar</Text>
-                    <Text style={LoginStyle.log_text_in}>Sesion</Text>
+                    <Text style={LoginStyle.log_text_in}>Sesión</Text>
                 </View>
                 <View style={LoginStyle.log_cont_login_inputs}>
                     <View>

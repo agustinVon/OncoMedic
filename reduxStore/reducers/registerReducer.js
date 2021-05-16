@@ -36,7 +36,6 @@ const user_data = (state=default_user , action) =>{
     switch (action.type) {
         case USER_LOGOUT:{
             return{
-                ...state,
                 ...default_user
             }
         }

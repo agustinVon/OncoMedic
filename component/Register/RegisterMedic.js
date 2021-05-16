@@ -21,16 +21,21 @@ import zIndex from '@material-ui/core/styles/zIndex'
 const {width} = Dimensions.get("window")
  
 const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
+    const places=[{label: 'Austral', value:0,}]
+
+    const etnias=[{label: 'Caucasico', value:0},{label: 'Hispano', value:1},{label: 'Asiatico', value:2}]
+
     const [medics,setMedics]= useState([{label:'null' , value:0}])
     const [medicsLoaded, setLoaded]=useState(true)
-    const [etnia,setEtnia] = useState(null)
-    const [place,setPlace] = useState (null)
+    const [etnia,setEtnia] = useState(etnias[0])
+    const [place,setPlace] = useState (places[0])
     const [medic,setMedic] = useState(null)
     const [id, setId] = useState("")
 
     useEffect(() =>{
         getMedics().then((loadedMedics) => {
                 setMedics(loadedMedics)
+                setMedic(loadedMedics[0])
             }
         )
     },[medicsLoaded])
@@ -51,7 +56,7 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
     const handleSwitchToRegisterMedic = () =>{
        // id.length > 0 ? etnia != "No Asignado" && medic != 0 && place != "No Asignado" && navigation.navigate("register_ilustrator1") : notifyMessage("Faltan datos")
         console.log(id)
-        setMedicalInformationAction({medic:medic,place:place,etnia:etnia,id:id})
+        setMedicalInformationAction({medic:medic.value,place:place,etnia:etnia,id:id})
         navigation.navigate("register_almost")
     }
 
@@ -59,9 +64,7 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
     Platform.OS === 'android' ? ToastAndroid.show(msg, ToastAndroid.SHORT) : AlertIOS.alert(msg)
     }
 
-    const places=[{label: 'Austral', value:0,}]
-
-    const etnias=[{label: 'Caucasico', value:0},{label: 'Hispano', value:1},{label: 'Asiatico', value:2}]
+    
     
     return (
         <SafeAreaView style={RegisterUser.reguse_cont_background}>
@@ -79,7 +82,7 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
                 <ScrollView  contentContainerStyle={RegisterUser.scroll} >    
                     <View style={RegisterUser.reguse_cont_regusein_inputs}>
                         <View style={{...(Platform.OS !== 'android' && {zIndex: 5000})}}>
-                            <Text style={RegisterUser.reguse_text_upinput}>Medico</Text>
+                            <Text style={RegisterUser.reguse_text_upinput}>Médico</Text>
                             <View style={RegisterUser.reguse_picker} >
                                 <CustomPicker items={medics} defaultValue={medic} setValue={setMedic} placeHolder={'Seleccione su medico'}/>                         
                             </View>

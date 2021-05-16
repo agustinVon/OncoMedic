@@ -24,25 +24,13 @@ export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
             placeholderStyle={defaultValue==null?CustomPickerStyle.place_holder_style_not_picked : CustomPickerStyle.place_holder_style_picked}>
         </DropDownPicker>
         :
-        <Pressable style={defaultValue!=null?CustomPickerStyle.not_picked : CustomPickerStyle.picked} onPress={()=>setValue(items[0])}>
-            {defaultValue == null?
-            
-            <View style={{padding:10,justifyContent:'center'}}>
-                <Text style={GeneralStyle.register_text_not_selected}>
-                    {placeHolder}
-                </Text>
-            </View>
-
-            :
-
+        <View style={CustomPickerStyle.picked}>
             <Picker
-            {...console.log(defaultValue)}
             selectedValue={defaultValue}
             onValueChange={(itemValue) => setValue(itemValue)}>
                 {items.map((item) => <Picker.Item label={item.label} value={item.value}/>)}
             </Picker>
-            }
-        </Pressable>
+        </View>
     )
 }
 const CustomPickerStyle= StyleSheet.create({

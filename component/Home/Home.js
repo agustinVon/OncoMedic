@@ -50,8 +50,8 @@ const Home = ({navigation, avatarData, name}) => {
                 <Text style={HomeStyle.h_txt_name}>{name}</Text>
             </View>
 
-            <ButtonCustomeHome title={"Como te encuentras hoy?"} orientation={"row"} illustration={"RD"} text={"Completa y cuentanos como te has sentido"} color={"#A476FC"} handlePress={switchDailyRegister}/>
-            <ButtonCustomeHome title={"No te encuentras bien?"} orientation={"row-reverse"} text={"Completa y cuentanos que te sucede!"} color={"#7685FC"} handlePress={switchSymptomsRegister}/>
+            <ButtonCustomeHome title={"¿Como te encuentras hoy?"} orientation={"row"} illustration={"RD"} text={"Completa y cuentanos como te has sentido."} color={"#A476FC"} handlePress={switchDailyRegister}/>
+            <ButtonCustomeHome title={"¿No te encuentras bien?"} orientation={"row-reverse"} text={"Completa y cuentanos que te sucede!"} color={"#7685FC"} handlePress={switchSymptomsRegister}/>
             <Pressable style={HomeStyle.h_btn_logout} onPress={()=>{navigation.navigate('login')}}>
                 <Text style={HomeStyle.h_txt_logout}>Log out</Text>
             </Pressable>

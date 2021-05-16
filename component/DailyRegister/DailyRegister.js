@@ -112,12 +112,12 @@ const DailyRegister = ({navigation,idR}) => {
         <ActivityIndicator animating={true} color={"#FFFFFF"} size='large' />
         </View>}
         <Swiper ref={swiper} loop={false} activeDotColor={"#FFB13A"}>
-            <DailyRegisterOptional text={'Que tan animado te encuentras hoy? \n (1 es muy mal 10 es muy bien)'} image={require("../../img/ic_child.png")} setValue={setMood}/>
-            <DailyRegisterOptional text={'Sentiste algun dolor hoy?'} image={require("../../img/ic_sad.png")} setValue={setSad}/>
+            <DailyRegisterOptional text={'¿Qué tan animado te encuentras hoy? \n (1 es muy mal 10 es muy bien)'} image={require("../../img/ic_child.png")} setValue={setMood}/>
+            <DailyRegisterOptional text={'¿Sentiste algun dolor hoy?'} image={require("../../img/ic_sad.png")} setValue={setSad}/>
             <DailyRegisterBut options={buttonsText.Apetito} text={"¿Tuviste apetito?"} image={require("../../img/ic_utensils.png")} setValue={setHungry}/>
             <DailyRegisterBut options={buttonsText.Hidratacion} text={"¿Te hidrataste?"} image={require("../../img/ic_water.png")} setValue={setHid}/>
-            <DailyRegisterBut options={buttonsText.ActividadFisica} text={"Hiciste actividad fisica?"} image={require("../../img/ic_run.png")} setValue={setRun}/>
-            <DailyRegisterBut options={buttonsText.Social} text={"Tuviste contacto social?"} image={require("../../img/ic_social.png")} setValue={setSocial}/>
+            <DailyRegisterBut options={buttonsText.ActividadFisica} text={"¿Hiciste actividad física?"} image={require("../../img/ic_run.png")} setValue={setRun}/>
+            <DailyRegisterBut options={buttonsText.Social} text={"¿Tuviste contacto social?"} image={require("../../img/ic_social.png")} setValue={setSocial}/>
         </Swiper>
         </View>
         
