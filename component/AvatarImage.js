@@ -9,7 +9,7 @@ export const AvatarImage = ({index,size}) => {
     const [avatars, setAvatars]=useState([])
 
     function compareAvatars(a,b){
-        return a.id - b.id
+        return (b.id - a.id)
     }
 
     const getAvatars = async()=>{

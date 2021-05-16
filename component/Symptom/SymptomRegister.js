@@ -15,23 +15,29 @@ const {width} = Dimensions.get('window')
 
 const SymptomRegister = ({navigation,idR,cancer}) => {
 
+    const [pickerOpen,setPickerOpen] = useState(false)
     const [id,setId] = useState(idR)
-    const [symptom,setSymptom] = useState({label:null,value:null,description:null,gravity:null})
+    const [symptom,setSymptom] = useState(null)
     const [grade,setGrade]= useState(null)
     const [currentGrades,setCurrentGrades]= useState([])
+    const [symptomDescription,setSymptomDesciption] = useState('')
     const [symptomIsLoaded,setSymptomIsLoaded] = useState(false)
-    const [sLoaded,setSLoaded]=useState([{label: 'LOADING', value:'null',descripcion: 'null',gravity:[{label:'LOADING',value:'0'}]}])
+    const [symptomLabel,setLabel]=useState('')
+    const [sLoaded,setSLoaded]=useState([{label: 'LOADING', value:'null', description:'null', gravity:[{label:'Loading',value:0}]}])
     const [isLoading, setIsLoading]= useState(false)
 
     const getSymptoms = async()=>{
+        var i=0
         const sL = []
         const sLDb = firestore().collection('mainSymptoms')
         await sLDb.get().then(
             (snapshot) => {
                 snapshot.forEach(doc => {
+                    i = i+1
+                    console.log(i)
                     console.log(doc.data().label)
                     if (doc.data().cancer==cancer|| doc.data().cancer=='comun' ){
-                        sL.push({label:doc.data().label,value:doc.data().value,descripcion:doc.data().descripcion,gravity:doc.data().gravity})
+                        sL.push({label:doc.data().label,value:i,description:doc.data().descripcion,gravity:doc.data().gravity})
                     } 
                 })
             }
@@ -40,9 +46,15 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
     }
 
     useEffect(() => {
-        if(symptom.value != null){
-            setCurrentGrades(symptom.gravity)
-        }
+        sLoaded.forEach((simp)=>{
+            if(simp.value === symptom){
+                console.log(simp)
+                setCurrentGrades(simp.gravity)
+                setSymptomDesciption(simp.description)
+                setLabel(simp.label)
+                console.log(simp)
+            }
+        })
     },[symptom])
 
     useEffect(() => {
@@ -68,7 +80,7 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
         .collection('symptoms')
         .add({
             id:id,
-            symptom:symptom.label,
+            symptom:symptomLabel,
             grade:grade,
             date:date,
             cancer:cancer
@@ -82,7 +94,7 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
     }
 
     const pushSymptoms = () =>{
-        if(grade == null || symptom == {label:null,value:null,description:null,gravity:null}){
+        if(grade == null){
             Alert.alert(
                 "Error",
                 "Seleccione un sintoma y un grado",
@@ -95,7 +107,6 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
         }
         else{
             if(grade>5){
-                console.log('fue activado')
                 console.log(grade)
                 Alert.alert(
                     "Advertencia",
@@ -119,14 +130,15 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
 
     return (
         <View style={SymptomStyle.symptom_generalView}>
-            <View style={SymptomStyle.symptom_topView} >
+            <View style={pickerOpen? SymptomStyle.symptom_topView_p:SymptomStyle.symptom_topView} >
                 <Text style={SymptomStyle.symptom_text_title}>Sintomas</Text>
-                <SearchPicker items={sLoaded} defaultValue={symptom.value} setValue={setSymptom} placeHolder={'Seleccione su sintoma'}/>
-                <View style={{width:'80%'}}>{symptom.value==null?
-                <Text style={SymptomStyle.symptom_descriptionText}>Descripcion de sintoma</Text>:<Text style={SymptomStyle.symptom_descriptionText}>{symptom.descripcion}</Text>}</View>
+                <SearchPicker items={sLoaded} setItems={setSLoaded} defaultValue={symptom} setValue={setSymptom} placeHolder={'Seleccione su sintoma'} open={pickerOpen} setOpen={setPickerOpen}/>
+                {console.log(symptom)}
+                <View style={{width:'80%'}}>{symptom==null?
+                <Text style={SymptomStyle.symptom_descriptionText}>Descripcion de sintoma</Text>:<Text style={SymptomStyle.symptom_descriptionText}>{symptomDescription}</Text>}</View>
             </View>
             <Image resizeMode={'stretch'} style={SymptomStyle.symptom_imgBack}source={require('../../img/register_deco.png')}/>
-            <View style={SymptomStyle.symptom_bottomView}>
+            <View style={pickerOpen? SymptomStyle.symptom_bottomView_p:SymptomStyle.symptom_bottomView}>
                 <Text style={SymptomStyle.symptom_text_title_bottom}>Grado</Text>
                 {currentGrades.length!=0?
                 <CustomPicker items={currentGrades} defaultValue={grade} setValue={setGrade} placeHolder={'Seleccione un grado'}/>
@@ -179,7 +191,7 @@ const SymptomStyle=StyleSheet.create({
     },
 
     symptom_descriptionText:{
-        marginTop:20,
+        marginTop:5,
         color:'white',
         height:100,
         textAlign:'center'
@@ -198,6 +210,7 @@ const SymptomStyle=StyleSheet.create({
     },
 
     symptom_text_title:{
+        marginBottom:5,
         marginTop: 60,
         fontSize: 25,
         fontWeight: 'bold',
@@ -211,9 +224,20 @@ const SymptomStyle=StyleSheet.create({
     },
 
     symptom_topView:{
+        zIndex:100000,
         backgroundColor: "#B189F8",
         flex:4.5,
         justifyContent:'space-evenly',
+        alignItems:'center',
+        flexDirection:'column',
+        
+    },
+
+    symptom_topView_p:{
+        zIndex:100000,
+        backgroundColor: "#B189F8",
+        flex:6,
+        justifyContent:'flex-start',
         alignItems:'center',
         flexDirection:'column',
         
@@ -227,6 +251,16 @@ const SymptomStyle=StyleSheet.create({
         flex: 4,
         alignSelf:'center'
     },
+
+    symptom_bottomView_p:{
+        justifyContent:'flex-start',
+        alignContent:'center',
+        backgroundColor: 'white',
+        width: '80%',
+        flex: 4,
+        alignSelf:'center'
+    },
+
 
     symptom_imgBack:{
         width,

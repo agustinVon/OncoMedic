@@ -3,21 +3,23 @@ import DropDownPicker from 'react-native-dropdown-picker'
 import {StyleSheet, Text} from 'react-native'
 import { View,TextInput } from 'react-native'
 
-export const SearchPicker = ({items, defaultValue, setValue, placeHolder}) => {
+export const SearchPicker = ({items,setItems, defaultValue, setValue, placeHolder,open,setOpen}) => {
 
 
 
     return(
         <DropDownPicker
+            zIndex={10000}
+            open={open}
+            setOpen={setOpen}
+            setItems={setItems}
             items={items}
-            defaultValue={defaultValue}
+            value={defaultValue}
+            setValue={setValue}
             style={defaultValue!=null? CustomPickerStyle.picked : CustomPickerStyle.not_picked}
             itemStyle={{justifyContent: 'flex-start'}}
             containerStyle={CustomPickerStyle.container_style}
-            dropDownStyle={{backgroundColor: 'white'}}
-            onChangeItem={item =>{
-                setValue(item);
-            }}
+            dropDownStyle={{backgroundColor: 'white', zIndex:1000}}
             placeholderStyle={defaultValue==null? CustomPickerStyle.place_holder_style_not_picked : CustomPickerStyle.place_holder_style_picked}
             searchable={true}
             searchablePlaceholder={placeHolder}

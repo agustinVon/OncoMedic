@@ -29,7 +29,7 @@ export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
             
             <View style={{padding:10,justifyContent:'center'}}>
                 <Text style={GeneralStyle.register_text_not_selected}>
-                    Seleccione su genero
+                    {placeHolder}
                 </Text>
             </View>
             :
