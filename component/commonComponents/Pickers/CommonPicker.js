@@ -32,6 +32,7 @@ export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
                     {placeHolder}
                 </Text>
             </View>
+
             :
 
             <Picker

@@ -38,11 +38,11 @@ const AvatarChanger = ({navigation,avatarData,id,setAvatarAction}) => {
         <SafeAreaView style={AvatarChangerStyle.avc_const_background}>
             <View style={AvatarChangerStyle.avc_back_img}>
                 <View  style={AvatarChangerStyle.avc_back_img}>
-                    <Image style={AvatarChangerStyle.avc_img}source={require('../../img/back_home1.png')}/>
+                    <Image style={AvatarChangerStyle.avc_img} resizeMode={'stretch'} source={require('../../img/back_home1.png') }/>
                     <View style={AvatarChangerStyle.avc_img_view}/>
                 </View>
                 <View  style={AvatarChangerStyle.avc_back_img}>
-                    <Image style={AvatarChangerStyle.avc_img}source={require('../../img/back_home2.png')}/>
+                    <Image style={AvatarChangerStyle.avc_img} resizeMode={'stretch'} source={require('../../img/back_home2.png')}/>
                     <View style={AvatarChangerStyle.avc_img_view2}/>
                 </View>              
             </View>
@@ -112,6 +112,7 @@ const AvatarChangerStyle = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     avc_img:{
+        width:'100%',
         position: "relative",
     },
     avc_img_view:{

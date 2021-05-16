@@ -3,6 +3,7 @@ import {Colors} from './Colors'
 import {FontSizes} from './Fonts'
 
 export const GeneralStyle = StyleSheet.create({
+
     daily_background:{
         width:'100%',
         height:"100%",

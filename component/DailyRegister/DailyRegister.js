@@ -35,8 +35,21 @@ const DailyRegister = ({navigation,idR}) => {
     },[id])
 
     useEffect(() =>{
-        if(social != ''){
-            pushDR()
+        if(social !== '' ){
+            if(mood!=='' && sad !== '' && hungry !== '' && hid !== '' && run !== ''){
+                pushDR()
+            }
+            else{
+                Alert.alert(
+                    "Error",
+                    "Algunas preguntas del registro quedaron sin responder",
+                    [
+                        {
+                            text: 'OK',
+                        }
+                    ]
+                )
+            }
         }
     },[social])
 
@@ -86,16 +99,18 @@ const DailyRegister = ({navigation,idR}) => {
     }
 
     return (
-        isLoading && 
+        <View style={{height:'100%', width:'100%', flex:1}}>
+        {isLoading &&
         <View style={{
         position: 'absolute',
         backgroundColor:'#707070',
+        zIndex:1000,
         opacity:0.7, 
         width:'100%',
         height:'110%',
         justifyContent:'center'}}>
         <ActivityIndicator animating={true} color={"#FFFFFF"} size='large' />
-        </View>,
+        </View>}
         <Swiper ref={swiper} loop={false} activeDotColor={"#FFB13A"}>
             <DailyRegisterOptional text={'Que tan animado te encuentras hoy? \n (1 es muy mal 10 es muy bien)'} image={require("../../img/ic_child.png")} setValue={setMood}/>
             <DailyRegisterOptional text={'Sentiste algun dolor hoy?'} image={require("../../img/ic_sad.png")} setValue={setSad}/>
@@ -104,6 +119,8 @@ const DailyRegister = ({navigation,idR}) => {
             <DailyRegisterBut options={buttonsText.ActividadFisica} text={"Hiciste actividad fisica?"} image={require("../../img/ic_run.png")} setValue={setRun}/>
             <DailyRegisterBut options={buttonsText.Social} text={"Tuviste contacto social?"} image={require("../../img/ic_social.png")} setValue={setSocial}/>
         </Swiper>
+        </View>
+        
     )
 }
 
