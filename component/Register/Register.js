@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import {ToastAndroid,Platform, AlertIOS,
-        SafeAreaView,StyleSheet,Dimensions,View,Image,Text,TextInput,ScrollView, Button,Modal,Pressable, KeyboardAvoidingView} from 'react-native'
+        SafeAreaView,StyleSheet,Dimensions,View,Image,Text,TextInput,ScrollView, Button,Modal,Pressable, KeyboardAvoidingView, Alert } from 'react-native'
 import {Picker} from '@react-native-picker/picker'
 import {ButtonCustomeOrange} from '../Buttons/ButtonCustomeOrange.js'
 import {connect} from 'react-redux'
@@ -39,9 +39,22 @@ const Register = ({navigation,setPersonalInformationAction}) => {
     
 
     const handleSwitchToRegisterMedic = () =>{
-       // email.length > 0 ? name.length >0 && gender != 0 && birth >0 && navigation.navigate("register_medic") : notifyMessage("Faltan datos")
-        setPersonalInformationAction({name:name,surname:surname,email:email,gender:gender,birth:birth.toDateString(),password:password})
-        navigation.navigate("register_medic")
+        if(name==='' || surname ==='' || password ===''|| email===''){
+            Alert.alert(
+                "Error",
+                "Complete todos los campos",
+                [
+                    {
+                        text: 'OK',
+                    }
+                ]
+            )
+        }
+        else{
+            setPersonalInformationAction({name:name,surname:surname,email:email,gender:gender,birth:birth.toDateString(),password:password})
+            navigation.navigate("register_medic")
+        }
+       
     }
 
     const notifyMessage = (msg) => {

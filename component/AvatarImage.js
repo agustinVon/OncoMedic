@@ -41,7 +41,7 @@ export const AvatarImage = ({index,size}) => {
         
     }
     else{
-        return <Image style={size=='small'?AvatarStyle.small:size=='medium'?AvatarStyle.medium:AvatarStyle.big} source={require('../img/avatar/avatar1.png')}></Image>
+        return <Image style={size=='small'?AvatarStyle.small:size=='medium'?AvatarStyle.medium:AvatarStyle.big} source={require('../img/avatar/defaultAvatar.png')}></Image>
     }
 }
 
