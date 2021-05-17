@@ -56,7 +56,7 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
     const handleSwitchToRegisterMedic = () =>{
        // id.length > 0 ? etnia != "No Asignado" && medic != 0 && place != "No Asignado" && navigation.navigate("register_ilustrator1") : notifyMessage("Faltan datos")
         console.log(id)
-        setMedicalInformationAction({medic:medic.value,place:place,etnia:etnia,id:id})
+        setMedicalInformationAction({medic:medic,place:place.label,etnia:etnia.label,id:id})
         navigation.navigate("register_almost")
     }
 

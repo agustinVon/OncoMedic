@@ -14,7 +14,7 @@ import {CommonActions} from '@react-navigation/native';
 const {width} = Dimensions.get("window")
 const {height} = Dimensions.get("window")
 
-const Login = ({navigation, setUser}) => {
+const Login = ({navigation, setUser, logoutUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [id,setId]=useState("")
     const [password,setPassword] = useState("")
@@ -23,6 +23,7 @@ const Login = ({navigation, setUser}) => {
 
     useFocusEffect(
         React.useCallback(()=>{
+            console.log('user loaded out')
             logoutUser()
         })
     )

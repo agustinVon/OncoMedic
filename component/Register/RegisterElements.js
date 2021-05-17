@@ -70,7 +70,7 @@ const RegisterElementStyle = StyleSheet.create({
         flex:1,
     },
     regelem_cont_top:{
-        paddingTop: 80,
+        paddingTop: 40,
         paddingBottom: 30,
         backgroundColor: "#B189F8",
         width,
