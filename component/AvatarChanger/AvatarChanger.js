@@ -9,6 +9,7 @@ import {AvatarImage} from '../AvatarImage'
 import firestore from '@react-native-firebase/firestore';
 import {Colors} from '../styles/Colors'
 import Icon from 'react-native-vector-icons/AntDesign';
+import {notifyMessage} from '../commonComponents/Modals/Notification'
 
 const AvatarChanger = ({navigation,avatarData,id,setAvatarAction}) => {
 
@@ -28,8 +29,11 @@ const AvatarChanger = ({navigation,avatarData,id,setAvatarAction}) => {
     }
 
     useEffect(()=>{
-        setAvatarAction({avatar:avatar})
-        updateToFireStore()
+        if(avatar!=avatarData){
+            notifyMessage('Su avatar fué editado exitosamente')
+            setAvatarAction({avatar:avatar})
+            updateToFireStore()
+        }
     },[avatar])
 
     const returnPress = () =>{
