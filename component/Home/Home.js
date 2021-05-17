@@ -73,17 +73,18 @@ const HomeStyle = StyleSheet.create({
     },
     h_txt_hola:{
         marginTop:20,
-        marginLeft: 20,
+        marginLeft: 15,
         fontSize: 25, 
     },
     h_txt_name:{
         fontSize:25,
         fontWeight: 'bold',
-        marginLeft: 20,
+        marginLeft: 15,
     },
     h_header_img:{
         width:50,
-        height:50
+        height:50,
+        marginLeft:10
     },
     h_header:{
         justifyContent: 'center',

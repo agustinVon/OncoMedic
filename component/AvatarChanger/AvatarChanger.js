@@ -7,6 +7,8 @@ import {ButtonAvatarSelection} from '../Buttons/ButtonAvatarSelection'
 import {setAvatarAction} from '../../reduxStore/actions/registerAction'
 import {AvatarImage} from '../AvatarImage'
 import firestore from '@react-native-firebase/firestore';
+import {Colors} from '../styles/Colors'
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const AvatarChanger = ({navigation,avatarData,id,setAvatarAction}) => {
 
@@ -48,8 +50,8 @@ const AvatarChanger = ({navigation,avatarData,id,setAvatarAction}) => {
             </View>
 
             <View style={AvatarChangerStyle.avc_return_buttonContainer}>
-                <Pressable zIndex={8000} style={AvatarChangerStyle.avc_return_button} onPress={()=> returnPress()}>
-                    <AvatarImage index={avatar} size={'small'}></AvatarImage>
+                <Pressable style={AvatarChangerStyle.avc_return_button} onPress={()=> returnPress()}>
+                    <Icon name={'arrowleft'} color={Colors.orange} size={30}/>
                 </Pressable>
             </View>
             
@@ -126,8 +128,11 @@ const AvatarChangerStyle = StyleSheet.create({
         backgroundColor: "#EEE6FD",
     },
     avc_return_button:{
-        height:40,
-        width:40,
+        height:70,
+        width:70,
+        borderRadius:200,
+        zIndex:8000,
+        color: "#FFFFFF"
     },
     avc_return_buttonContainer:{
         position: 'absolute',
@@ -135,6 +140,10 @@ const AvatarChangerStyle = StyleSheet.create({
         left:0,
         marginTop:20,
         marginLeft: 20,
+        height:40,
+        width:40,
+        borderRadius:0,
+        color: Colors.orange
     },
     avc_main_view:{
         position: 'absolute',

@@ -20,11 +20,12 @@ export const SearchPicker = ({items,setItems, defaultValue, setValue, placeHolde
             itemStyle={{justifyContent: 'flex-start'}}
             containerStyle={CustomPickerStyle.container_style}
             dropDownStyle={{backgroundColor: 'white', zIndex:1000}}
+            placeholder={placeHolder}
             placeholderStyle={defaultValue==null? CustomPickerStyle.place_holder_style_not_picked : CustomPickerStyle.place_holder_style_picked}
             searchable={true}
-            searchablePlaceholder={placeHolder}
+            searchPlaceholder={'Busque su sintoma...'}
             searchablePlaceholderTextColor='#AAAAAA'
-            searchableError={()=><Text>Not Found</Text>}
+            searchableError={()=><Text>No se encontró el síntoma que esta buscando</Text>}
         >
         </DropDownPicker>
     )
