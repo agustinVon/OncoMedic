@@ -4,19 +4,18 @@ import {FontSizes} from './Fonts'
 
 export const GeneralStyle = StyleSheet.create({
 
-    daily_background:{
+    white_background:{
         width:'100%',
         height:"100%",
         backgroundColor: "white",
     },
 
-    daily_upper_view:{
-        backgroundColor: Colors.orange,
+    slider_upper_view:{
         width:'100%',
         flex:1,
         justifyContent:'center',
         alignContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
 
     daily_down_view:{
@@ -27,7 +26,7 @@ export const GeneralStyle = StyleSheet.create({
         alignItems:'center'
     },
 
-    daily_text:{
+    slider_text:{
         maxWidth: 250,
         fontSize: FontSizes.dailyTitles,
         color:"white",
@@ -35,14 +34,32 @@ export const GeneralStyle = StyleSheet.create({
         textAlign:"center",
     },
 
-    daily_middle_deco:{
+    slider_middle_deco:{
         width: '100%',
         height: 60
     },
 
-    register_text_not_selected:{
+    field_text_not_selected:{
         fontSize: FontSizes.registerQuerys,
         textAlign:'left',
         color: Colors.textGrey
-    }
+    },
+
+    field_text:{
+        fontSize: FontSizes.registerQuerys,
+        textAlign:'left',
+    },
+
+    field_multiple:{
+        justifyContent:'center',
+        alignItems:'center',
+        flexDirection:'row',
+        marginTop: 6,
+        paddingLeft:10,
+        paddingRight:10,
+        width:300,
+        height:50,
+        borderRadius: 10,
+        backgroundColor: Colors.inputFieldGrey,
+    },
 });

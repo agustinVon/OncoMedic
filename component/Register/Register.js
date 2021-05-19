@@ -10,6 +10,8 @@ import {useFocusEffect} from '@react-navigation/native'
 
 import {CustomPicker} from '../commonComponents/Pickers/CommonPicker'
 import {DatePickerModal} from '../commonComponents/Modals/DatePickerModal'
+import {NotCompletedAlert} from '../commonComponents/Alerts/Alert'
+import {PasswordField} from '../commonComponents/Fields/PasswordField'
 import Icon from 'react-native-vector-icons/AntDesign';
 
 
@@ -23,12 +25,9 @@ const Register = ({navigation,setPersonalInformationAction}) => {
     const [password,setPassword] = useState("")
     const [gender,setGender] = useState(0)
     const [birth, setBirth] = useState(new Date())
-    const [lenghtbirth,setLength] = useState(0)
     const [birthWasSelected, setBirthSelected] = useState(false)
     const [emailValidate,setEValidate] = useState(true)
     const [dateModalVisible, setDModal] = useState(false)
-    const [passwordHidden, setHidPas] = useState(true)
-    const [firstExecution,setFirst] = useState(false)
 
     useEffect(() => {
         const email_aux = email;
@@ -40,15 +39,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
 
     const handleSwitchToRegisterMedic = () =>{
         if(name==='' || surname ==='' || password ===''|| email===''){
-            Alert.alert(
-                "Error",
-                "Complete todos los campos",
-                [
-                    {
-                        text: 'OK',
-                    }
-                ]
-            )
+            <NotCompletedAlert title={'Error'} description={'Complete todos los campos'}/>
         }
         else{
             setPersonalInformationAction({name:name,surname:surname,email:email,gender:gender,birth:birth.toDateString(),password:password})
@@ -93,8 +84,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                             <View style={{marginTop:25}}>
                             <Text style={RegisterUser.reguse_text_upinput}>Contraseña</Text>
                                 <View style={RegisterUser.log_text_container}>
-                                    <TextInput secureTextEntry={passwordHidden} onChangeText={setPassword} placeholderTextColor="#c4c4c4" placeholder="Ingrese su contraseña" style={RegisterUser.log_textInput}></TextInput>
-                                    <Icon.Button name={passwordHidden?'eye':'eyeo'}  color={'#AAAAAA'} style={RegisterUser.log_icon_style} onPress={()=>setHidPas(!passwordHidden)}/>
+                                    <PasswordField setPassword={setPassword}/>
                                 </View>
                             </View>
                             
@@ -121,7 +111,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                                     {console.log('fue seleccionada la fecha: '+birthWasSelected)}
                                     {birthWasSelected?
                                     <View>
-                                        <Text style={RegisterUser.reguse_text}> {''+birth.getDate()+' / '+birth.getMonth()+' / '+birth.getFullYear()} </Text>
+                                        <Text style={RegisterUser.reguse_text}> {''+birth.getDate()+' / '+(birth.getMonth()+1)+' / '+birth.getFullYear()} </Text>
                                     </View>
                                     :
                                     <Text style={RegisterUser.reguse_text_upinput}>Seleccione su fecha de nacimiento</Text>

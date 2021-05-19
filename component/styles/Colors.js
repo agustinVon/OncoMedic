@@ -1,4 +1,7 @@
 export const Colors = {
     orange: '#FFB13A',
-    textGrey: '#c4c4c4'
+    textGrey: '#C4C4C4',
+    inputFieldGrey: '#E3E3E3',
+    black:'#AAAAAA',
+    violet:'#B189F8'
 }

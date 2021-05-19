@@ -8,6 +8,8 @@ import { Alert } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native'
 import {ActivityIndicator} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {PasswordField} from '../commonComponents/Fields/PasswordField'
+import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import {CommonActions} from '@react-navigation/native';
 
 
@@ -18,7 +20,6 @@ const Login = ({navigation, setUser, logoutUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [id,setId]=useState("")
     const [password,setPassword] = useState("")
-    const [passwordHidden, setHidPas] = useState(true)
     const [isLoading,setIsLoading] = useState(false)
 
     useFocusEffect(
@@ -37,38 +38,26 @@ const Login = ({navigation, setUser, logoutUser}) => {
         return await firestore()
         .collection('users')
         .doc(id).get().then((doc)=>{
-            if(doc.exists && doc.data().password==password && doc.data().status=='Activo'){
-                setUser(doc.data())
-                setIsLoading(false)
-                navigation.navigate('home')
-            }
-            else if(doc.exists && doc.data().password==password && doc.data().status!='Activo'){
-                setIsLoading(false)
-                navigation.navigate('wait_screen')
+            console.log('connected')
+            if(!doc.exists || doc.data().password !== password ){
+                CustomAlert(title='Error' , description='Usuario no existe o contraseña incorrecta')
             }
             else{
-                setIsLoading(false)
-                Alert.alert(
-                    "Error",
-                    "Usuario no existe o contraseña incorrecta",
-                    [
-                        {
-                            text: 'OK',
-                        }
-                    ]
-                )
+                if(doc.data().status=='Activo'){
+                    setUser(doc.data())
+                    setIsLoading(false)
+                    navigation.navigate('home')
+                }
+                else{
+                    setIsLoading(false)
+                    navigation.navigate('wait_screen')
+                }
             }
+            setIsLoading(false)
         }).catch(err =>{
-            Alert.alert(
-                "Error",
-                "No se pudo conectar a base de datos",
-                [
-                    {
-                        text: 'OK',
-                    }
-                ]
-            )
+            CustomAlert(title='Error' , description='No se pudo conectar a base de datos')
         })
+        
     }
 
     return (
@@ -112,10 +101,7 @@ const Login = ({navigation, setUser, logoutUser}) => {
                     </View>
                     <View style={{marginTop: 20}}>
                         <Text style={LoginStyle.log_text_upinput}>Constraseña</Text>
-                        <View style={LoginStyle.log_text_container}>
-                            <TextInput secureTextEntry={passwordHidden} onChangeText={setPassword} placeholderTextColor="#c4c4c4" placeholder="Ingrese su contraseña" style={LoginStyle.log_textInput}></TextInput>
-                            <Icon.Button name={passwordHidden?'eye':'eyeo'}  color={'#AAAAAA'} style={LoginStyle.log_icon_style} onPress={()=>setHidPas(!passwordHidden)}/>
-                        </View>
+                        <PasswordField setPassword={setPassword}/>
                     </View>
                     <View style={LoginStyle.log_cont_olvcont}>
                         <Pressable style={{width:300}} onPress={() => setModalVisible(true)}>
