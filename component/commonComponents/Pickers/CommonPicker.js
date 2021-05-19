@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native'
 import { Platform, Text } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { Pressable } from 'react-native'
+import {GeneralStyle} from '../../styles/GeneralStyle'
 
 export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
 
@@ -23,21 +24,13 @@ export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
             placeholderStyle={defaultValue==null?CustomPickerStyle.place_holder_style_not_picked : CustomPickerStyle.place_holder_style_picked}>
         </DropDownPicker>
         :
-        <Pressable style={defaultValue!=null?CustomPickerStyle.not_picked : CustomPickerStyle.picked} onPress={()=>setValue(items[0])}>
-            {defaultValue == null?
-            <Picker
-            selectedValue={defaultValue}
-            onValueChange={(itemValue) => setValue(itemValue)}>
-                <Picker.Item label={placeHolder} value={null} style={CustomPickerStyle.place_holder_style_not_picked}/>
-                {items.map((item) => <Picker.Item label={item.label} value={item.value}/>)}
-            </Picker>:
+        <View style={CustomPickerStyle.picked}>
             <Picker
             selectedValue={defaultValue}
             onValueChange={(itemValue) => setValue(itemValue)}>
                 {items.map((item) => <Picker.Item label={item.label} value={item.value}/>)}
             </Picker>
-            }
-        </Pressable>
+        </View>
     )
 }
 const CustomPickerStyle= StyleSheet.create({
@@ -62,7 +55,8 @@ const CustomPickerStyle= StyleSheet.create({
         borderBottomLeftRadius:10, 
         borderBottomRightRadius:10,
         height:50,
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
+        
     },
 
     picked:{

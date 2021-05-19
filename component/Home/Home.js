@@ -10,11 +10,9 @@ const {width} = Dimensions.get('window')
 const Home = ({navigation, avatarData, name}) => {
 
     const [avatar,setAvatar] = useState(avatarData)
-    console.log(avatar)
 
     useEffect(()=>{
         setAvatar(avatarData)
-        console.log(avatar)
     },[avatarData])
 
     const switchDailyRegister = () =>{
@@ -50,8 +48,8 @@ const Home = ({navigation, avatarData, name}) => {
                 <Text style={HomeStyle.h_txt_name}>{name}</Text>
             </View>
 
-            <ButtonCustomeHome title={"Como te encuentras hoy?"} orientation={"row"} illustration={"RD"} text={"Completa y cuentanos como te has sentido"} color={"#A476FC"} handlePress={switchDailyRegister}/>
-            <ButtonCustomeHome title={"No te encuentras bien?"} orientation={"row-reverse"} text={"Completa y cuentanos que te sucede!"} color={"#7685FC"} handlePress={switchSymptomsRegister}/>
+            <ButtonCustomeHome title={"¿Como te encuentras hoy?"} orientation={"row"} illustration={"RD"} text={"Completa y cuentanos como te has sentido."} color={"#A476FC"} handlePress={switchDailyRegister}/>
+            <ButtonCustomeHome title={"¿No te encuentras bien?"} orientation={"row-reverse"} text={"Completa y cuentanos que te sucede!"} color={"#7685FC"} handlePress={switchSymptomsRegister}/>
             <Pressable style={HomeStyle.h_btn_logout} onPress={()=>{navigation.navigate('login')}}>
                 <Text style={HomeStyle.h_txt_logout}>Log out</Text>
             </Pressable>
@@ -75,17 +73,18 @@ const HomeStyle = StyleSheet.create({
     },
     h_txt_hola:{
         marginTop:20,
-        marginLeft: 20,
+        marginLeft: 15,
         fontSize: 25, 
     },
     h_txt_name:{
         fontSize:25,
         fontWeight: 'bold',
-        marginLeft: 20,
+        marginLeft: 15,
     },
     h_header_img:{
         width:50,
-        height:50
+        height:50,
+        marginLeft:10
     },
     h_header:{
         justifyContent: 'center',

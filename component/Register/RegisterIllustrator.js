@@ -7,6 +7,8 @@ import { Alert } from 'react-native';
 const {width} = Dimensions.get("window")
 
 const RegisterIllustrator = ({navigation,userData,goHomeFunction}) => {
+
+    
     
     const handleSwitchScreen = () =>{
         
@@ -15,31 +17,43 @@ const RegisterIllustrator = ({navigation,userData,goHomeFunction}) => {
     }
 
     const pushToDatabase = (user) =>{
+        var userDocExist = false
         const userDocument = firestore()
         .collection('users')
         .doc(user.id);
+        console.log(user.id)
+
+        userDocument.get()
+        .then((doc)=>{
+            if(doc.exists){
+                Alert.alert(
+                    "Error",
+                    "Id ya existe",
+                    [
+                        {
+                            text: 'OK',
+                        }
+                    ]
+                )
+                console.log('err id exists already')
+            }
+            else{
+                firestore()
+                .collection('users')
+                .doc(user.id)
+                .set({
+                    ...user
+                })
+                .then(() => {
+                    console.log('User added!');
+                })
+            }
+        }).catch(()=>{
+            
+        })
         console.log('user : '+user)
 
-        userDocument == null?
-        firestore()
-        .collection('users')
-        .doc(user.id)
-        .set({
-            ...user
-        })
-        .then(() => {
-            console.log('User added!');
-        }):
-        Alert.alert(
-            "Error",
-            "Id ya existe",
-            [
-                {
-                    text: 'OK',
-                }
-            ]
-        )
-        console.log('err id exists already')
+        
     }
 
     return (
