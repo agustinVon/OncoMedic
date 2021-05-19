@@ -10,7 +10,7 @@ import {useFocusEffect} from '@react-navigation/native'
 
 import {CustomPicker} from '../commonComponents/Pickers/CommonPicker'
 import {DatePickerModal} from '../commonComponents/Modals/DatePickerModal'
-import {NotCompletedAlert} from '../commonComponents/Alerts/Alert'
+import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import {PasswordField} from '../commonComponents/Fields/PasswordField'
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -39,7 +39,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
 
     const handleSwitchToRegisterMedic = () =>{
         if(name==='' || surname ==='' || password ===''|| email===''){
-            <NotCompletedAlert title={'Error'} description={'Complete todos los campos'}/>
+            CustomAlert('Error','Complete todos los campos')
         }
         else{
             setPersonalInformationAction({name:name,surname:surname,email:email,gender:gender,birth:birth.toDateString(),password:password})

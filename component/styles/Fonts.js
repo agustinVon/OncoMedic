@@ -1,4 +1,4 @@
 export const FontSizes={
 registerQuerys: 17,
-dailyTitles:25,
+titles:25,
 }

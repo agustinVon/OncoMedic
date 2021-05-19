@@ -23,10 +23,19 @@ const DailyRegister = ({navigation,idR}) => {
     const [isLoading, setLoading] = useState(false)
 
     const buttonsText = {
-        Apetito:['Menos de lo normal', 'Normal', 'Mas de lo normal'],
-        Hidratacion:['Menos de 1L','Entre 1L y 2L','Mas de 2L'],
-        ActividadFisica:['No','Menos de 30 min','Entre 30 y 60 min'],
-        Social:['No. No vi a nadie','Si. Limitado a pocas interacciones interpersonales','Si. Vi a conocidos y amigos mas de una hora','Si. Vi a conocidos y amigos mas de 2 horas']
+        Apetito:[{label:'Menos de lo normal', value:'Menos de lo normal'},
+                {label:'Normal',value:'Normal'},
+                {label:'Mas de lo normal',value:'Mas de lo normal'}],
+        Hidratacion:[{label:'Menos de 1L',value:'Menos de 1L'},
+                {label:'Entre 1L y 2L',value:'Entre 1L y 2L'},
+                {label:'Mas de 2L',value:'Mas de 2L'}],
+        ActividadFisica:[{label:'No',value:'No'},
+                {label:'Menos de 30 min',value:'Menos de 30 min'},
+                {label:'Entre 30 y 60 min',value:'Entre 30 y 60 min'}],
+        Social:[{label:'No. No vi a nadie',value:'No. No vi a nadie'},
+                {label:'Si. Limitado a pocas interacciones interpersonales',value:'Si. Limitado a pocas interacciones interpersonales'},
+                {label:'Si. Vi a conocidos y amigos mas de una hora',value:'Si. Vi a conocidos y amigos mas de una hora'},
+                {label:'Si. Vi a conocidos y amigos mas de 2 horas',value:'Si. Vi a conocidos y amigos mas de 2 horas'}]
     }
 
     useEffect(()=>{
@@ -60,14 +69,6 @@ const DailyRegister = ({navigation,idR}) => {
 
 
     const swipeNext = (i) =>{
-        console.log('mood ' + mood)
-        console.log('sad '+sad)
-        console.log('hungry '+hungry)
-        console.log('hid '+ hid)
-        console.log('run ' + run)
-        console.log('social' + social)
-        console.log('--------------')
-
         swiper.current.scrollBy(1)
     }
 

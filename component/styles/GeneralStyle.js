@@ -12,7 +12,24 @@ export const GeneralStyle = StyleSheet.create({
 
     slider_upper_view:{
         width:'100%',
+        flex:4,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center',
+    },
+
+    small_slider_upper_view:{
+        width:'100%',
         flex:1,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center',
+    },
+
+    big_slider_down_view:{
+        paddingBottom:'15%',
+        width:'100%',
+        flex:8,
         justifyContent:'center',
         alignContent:'center',
         alignItems:'center',
@@ -20,15 +37,15 @@ export const GeneralStyle = StyleSheet.create({
 
     daily_down_view:{
         width:'100%',
-        flex:1,
+        flex:5,
         justifyContent:'center',
-        alignContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        paddingBottom:'15%'
     },
 
     slider_text:{
         maxWidth: 250,
-        fontSize: FontSizes.dailyTitles,
+        fontSize: FontSizes.titles,
         color:"white",
         fontWeight: 'bold',
         textAlign:"center",
@@ -37,6 +54,11 @@ export const GeneralStyle = StyleSheet.create({
     slider_middle_deco:{
         width: '100%',
         height: 60
+    },
+
+    slider_small_image:{
+        width:40,
+        height:35
     },
 
     field_text_not_selected:{
@@ -62,4 +84,17 @@ export const GeneralStyle = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: Colors.inputFieldGrey,
     },
+
+    center_container:{
+        marginTop:20,
+        marginBottom:20,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center'
+    },
+
+    title:{
+        fontSize: FontSizes.titles,
+        fontWeight: 'bold',
+    }
 });

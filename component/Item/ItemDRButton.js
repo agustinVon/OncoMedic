@@ -9,8 +9,8 @@ const ItemDRButtons = ({item,handlePress}) => {
     }
 
     return (
-        <Pressable style={ItemRegisterStyle.ireg_back} onPress={()=>optionSelected(item)}>
-            <Text style={ItemRegisterStyle.ireg_text}>{item}</Text>
+        <Pressable style={ItemRegisterStyle.ireg_back} onPress={()=>optionSelected(item.value)}>
+            <Text style={ItemRegisterStyle.ireg_text}>{item.label}</Text>
         </Pressable>
     )
 }
