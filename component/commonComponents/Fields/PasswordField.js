@@ -34,7 +34,7 @@ export const PasswordField = ({setValue,failToggle,incomplete}) =>{
                         style={{flex : 1 , backgroundColor : Colors.inputFieldGrey}} 
                         onPress={()=>setPasswordHidden(!passwordIsHidden)}/>
             </View>
-            {(!passwordIsValid) && <Text style={{color: 'red'}}>{'Contraseña no valida'}</Text>}
+            {(!passwordIsValid) && <Text style={{color: 'red'}}>{'Contraseña no valida (8 caracteres minimos)'}</Text>}
             {(incomplete && <Text style={{color: 'red'}}>{'Campo incompleto'}</Text> )}
         </View>
         
