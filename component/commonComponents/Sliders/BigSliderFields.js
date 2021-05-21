@@ -7,8 +7,9 @@ import {SliderType} from './SliderType'
 import {InputField} from '../Fields/InputFieldTitle'
 
 export const BigSliderFields = ({options, image, setValue, type}) => {
+    
     return(
-        
+
         <View style={GeneralStyle.white_background}>
             <View style={{...GeneralStyle.small_slider_upper_view ,
                             backgroundColor: (type === SliderType.daily ? Colors.orange : Colors.violet)}}>
@@ -18,7 +19,7 @@ export const BigSliderFields = ({options, image, setValue, type}) => {
                 resizeMode={'stretch'} 
                 source={type === SliderType.daily ? require('../../../img/day_deco.png') : require('../../../img/register_deco.png')}/>
             <View style={ GeneralStyle.big_slider_down_view }>
-                {options.map((option, index) => {return(<InputField title={option} setValue={setValue[index]}/>)})}
+                {options.map((option, index) => {return(<InputField key={index} title={option} setValue={setValue[index]}/>)})}
             </View>
         </View>
     )

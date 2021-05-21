@@ -11,7 +11,6 @@ const RegisterIllustrator = ({navigation,userData,goHomeFunction}) => {
     
     
     const handleSwitchScreen = () =>{
-        
         pushToDatabase(userData)
         goHomeFunction()
     }

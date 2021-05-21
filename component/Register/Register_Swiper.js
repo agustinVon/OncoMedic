@@ -10,15 +10,15 @@ import {SliderType} from '../commonComponents/Sliders/SliderType'
 import { BigSliderFields } from '../commonComponents/Sliders/BigSliderFields'
 import { BigSliderButtons } from '../commonComponents/Sliders/BigSliderButtons'
 import { BigSliderRadio } from '../commonComponents/Sliders/BigSliderRadio'
+import {CustomAlert} from '../commonComponents/Alerts/Alert'
+import {setDbtInformationAction, setDbtOptionAction, setSmokeInformationAction, setSmokeOptionAction, setMedOptionAction} from '../../reduxStore/actions/registerAction'
 
 
-const Register_Swiper = ({navigation,smokeState,dbtState,dbtMed}) => {
+const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationAction, setDbtInformationAction, setMedOptionAction, setSmokeOptionAction,setDbtOptionAction}) => {
 
-    const [smoke,setSmoke] = useState(null)
-    const [sTime,setSmokeTime]= useState('')
-    const [sQnt,setQnt]= useState('')
-    const [dbt,setDbt]= useState(null)
-    const [medDbt,setMedDbt]= useState(null)
+    const [sTime,setSmokeTime]= useState(0)
+    const [sQnt,setQnt]= useState(0)
+    const [medDbt,setMedDbt]= useState('')
     const [hip, setHip] = useState(false)
     const [epoc, setEpoc] = useState(false)
     const [acv, setACV] = useState(false)
@@ -35,16 +35,42 @@ const Register_Swiper = ({navigation,smokeState,dbtState,dbtMed}) => {
     const radio = ["Hipertensión","EPOC","ACV","Infarto"]           
 
     useEffect(()=>{
-        if(smoke !== null || dbt !== null || medDbt !== null){
+        if(medDbt !== ''){
+            setDbtOptionAction(medDbt)
             swiper.current.scrollBy(1)
         }
-    },[smoke,dbt,medDbt])
+    },[medDbt])
 
- 
+    useEffect(()=>{
+        setSmokeOptionAction({
+            time: sTime,
+            qnt: sQnt
+        })
+    },[sQnt,sTime])
+
+    useEffect(()=>{
+        setMedOptionAction({
+            hip:hip,
+            epoc:epoc,
+            acv:acv,
+            inf:inf
+        })
+    },[hip,epoc,acv,inf])
+
     const swiper = React.useRef(null);
 
-    const nextScreen = (value) =>{
+    const setSmoke = (smoke) =>{
+        setSmokeInformationAction(smoke)
         swiper.current.scrollBy(1);
+    }
+
+    const setDbt = (dbt) =>{
+        setDbtInformationAction(dbt)
+        swiper.current.scrollBy(1)
+    }
+
+    const test =(value)=>{
+        console.log(value)
     }
 
     return (
@@ -54,13 +80,14 @@ const Register_Swiper = ({navigation,smokeState,dbtState,dbtMed}) => {
                 image={require("../../img/ic_smoke.png")} setValue={setSmoke}
                 type={SliderType.register}/>
                     {
-                        smoke != 0 && <BigSliderFields options={smokeDetails} setValue={[setQnt,setSmokeTime]} image={require("../../img/ic_smoke.png")} type={SliderType.register}/>
+                        smokeState != 0 && <BigSliderFields options={smokeDetails} setValue={[setQnt,setSmokeTime]} image={require("../../img/ic_smoke.png")} type={SliderType.register}/>
                     }
+                    {console.log(sQnt)}
                 <SliderButtons options={dbtOptions} text={"¿TENES DIABETES?"}
                 image={require("../../img/ic_diabetic.png")} setValue={setDbt}
                 type={SliderType.register}/>
                     {
-                        dbt && <BigSliderButtons options={meds} image={require("../../img/ic_diabetic.png")} setValue={setMedDbt} type={SliderType.register}/>
+                        dbtState && <BigSliderButtons options={meds} image={require("../../img/ic_diabetic.png")} setValue={setMedDbt} type={SliderType.register}/>
                     }
 
                 <BigSliderRadio options={radio} setValue={[setHip,setEpoc,setACV,setInf]} image={require("../../img/ic_diabetic.png")}/>
@@ -72,9 +99,16 @@ const mapStateToProps = (state) => {
     return {
         smokeState: state.user_data.smoke.smoke,
         dbtState: state.user_data.dbt.dbt,
-        dbtMed: state.user_data.dbt.med
     }
 }
 
-export default connect(mapStateToProps)(Register_Swiper)
+const mapDispatchToProps = {
+    setSmokeInformationAction,
+    setSmokeOptionAction,
+    setDbtInformationAction,
+    setDbtOptionAction,
+    setMedOptionAction
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register_Swiper)
 
