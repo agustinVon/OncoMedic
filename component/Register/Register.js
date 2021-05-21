@@ -4,7 +4,7 @@ import {ToastAndroid,Platform, AlertIOS,
 import {Picker} from '@react-native-picker/picker'
 import {ButtonCustomeOrange} from '../Buttons/ButtonCustomeOrange.js'
 import {connect} from 'react-redux'
-import {logoutUser, setPersonalInformationAction} from '../../reduxStore/actions/registerAction'
+import {logoutUser, setDbtInformationAction, setPersonalInformationAction} from '../../reduxStore/actions/registerAction'
 import DropDownPicker from 'react-native-dropdown-picker'
 import {useFocusEffect} from '@react-navigation/native'
 
@@ -12,6 +12,8 @@ import {CustomPicker} from '../commonComponents/Pickers/CommonPicker'
 import {DatePickerModal} from '../commonComponents/Modals/DatePickerModal'
 import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import {PasswordField} from '../commonComponents/Fields/PasswordField'
+import {IncorrectField} from '../commonComponents/Fields/IncorrectField'
+import {MailField} from '../commonComponents/Fields/MailField'
 import Icon from 'react-native-vector-icons/AntDesign';
 
 
@@ -28,6 +30,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
     const [birthWasSelected, setBirthSelected] = useState(false)
     const [emailValidate,setEValidate] = useState(true)
     const [dateModalVisible, setDModal] = useState(false)
+    const [firstTry,setFirstTry] = useState(true)
 
     useEffect(() => {
         const email_aux = email;
@@ -38,6 +41,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
     
 
     const handleSwitchToRegisterMedic = () =>{
+        setFirstTry(false)
         if(name==='' || surname ==='' || password ===''|| email===''){
             CustomAlert('Error','Complete todos los campos')
         }
@@ -75,17 +79,19 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                     <View style={RegisterUser.reguse_cont_regusein_inputs}>
                             <View>
                                 <Text style={RegisterUser.reguse_text_upinput}>Nombre</Text>
-                                <TextInput onChangeText={setName} placeholderTextColor="#c4c4c4" placeholder="Ingrese su nombre" style={RegisterUser.reguse_textInput}></TextInput>
+                                <IncorrectField fail={name.length < 1 && !firstTry}
+                                    value={name} setValue={setName}
+                                    placeHolder={'Ingrese su nombre'} message={'Campo incompleto'}/>
                             </View>
                             <View style={{marginTop:25}}>
                                 <Text style={RegisterUser.reguse_text_upinput}>Apellido</Text>
-                                <TextInput onChangeText={setSurname} placeholderTextColor="#c4c4c4" placeholder="Ingrese su Apellido" style={RegisterUser.reguse_textInput}></TextInput>
+                                <IncorrectField fail={surname.length < 1 && !firstTry}
+                                    value={surname} setValue={setSurname}
+                                    placeHolder={'Ingrese su Apellido'} message={'Campo incompleto'}/>
                             </View>
                             <View style={{marginTop:25}}>
-                            <Text style={RegisterUser.reguse_text_upinput}>Contraseña</Text>
-                                <View style={RegisterUser.log_text_container}>
-                                    <PasswordField setPassword={setPassword}/>
-                                </View>
+                                <Text style={RegisterUser.reguse_text_upinput}>Contraseña</Text>
+                                <PasswordField setValue={setPassword} failToggle={true} incomplete={!firstTry && password.length<1}/>
                             </View>
                             
                             <View style={{marginTop: 25, zIndex:40}}>
@@ -99,10 +105,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                             </View>
                             <View style={{marginTop: 25}}>
                                 <Text style={RegisterUser.reguse_text_upinput}>Email</Text>
-                                <TextInput onChangeText={setEmail} value={email} keyboardType={"email-address"} placeholderTextColor="#c4c4c4" placeholder="Ingrese su email" style={ emailValidate ? RegisterUser.reguse_textInput : RegisterUser.reguse_textInputRed }></TextInput>
-                                {
-                                    !emailValidate  && <Text style={RegisterUser.reguse_validvalue}>Introducir valor valido</Text>
-                                }
+                                <MailField setValue={setEmail} incomplete={!firstTry && email.length <1}/>
                             </View>
                             <View style={{marginTop: 25}}>
                                 <Text style={RegisterUser.reguse_text_upinput}>Fecha de Nacimiento</Text>
