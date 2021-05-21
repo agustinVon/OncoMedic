@@ -68,14 +68,16 @@ export const GeneralStyle = StyleSheet.create({
     },
 
     field_text:{
+        width:300,
         fontSize: FontSizes.registerQuerys,
         textAlign:'left',
     },
 
     field_multiple:{
-        justifyContent:'center',
+        justifyContent:'flex-start',
         alignItems:'center',
         flexDirection:'row',
+        fontSize: FontSizes.registerQuerys,
         marginTop: 6,
         paddingLeft:10,
         paddingRight:10,
@@ -83,6 +85,21 @@ export const GeneralStyle = StyleSheet.create({
         height:50,
         borderRadius: 10,
         backgroundColor: Colors.inputFieldGrey,
+    },
+
+    field_incorrect:{
+        justifyContent:'flex-start',
+        alignItems:'center',
+        flexDirection:'row',
+        marginTop: 6,
+        width:300,
+        height:50,
+        paddingLeft:10,
+        paddingRight:10,
+        borderWidth: 2,
+        borderColor: "red",
+        borderRadius: 10,
+        backgroundColor: Colors.inputFieldGrey,   
     },
 
     center_container:{

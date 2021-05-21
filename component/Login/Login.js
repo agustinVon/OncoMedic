@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {PasswordField} from '../commonComponents/Fields/PasswordField'
 import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import {CommonActions} from '@react-navigation/native';
+import {MailField} from '../commonComponents/Fields/MailField'
 
 
 const {width} = Dimensions.get("window")
@@ -20,6 +21,7 @@ const Login = ({navigation, setUser, logoutUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [email,setEmail]=useState("")
     const [password,setPassword] = useState("")
+    const [firstTry, setFirstTry] = useState(true)
     const [isLoading,setIsLoading] = useState(false)
 
     useFocusEffect(
@@ -35,31 +37,35 @@ const Login = ({navigation, setUser, logoutUser}) => {
 
     const switchToHome = async () =>{
 
-        setIsLoading(true)
-        var userData = null
-        const userCollection = firestore().collection('users')
-        await userCollection.get().then(
-            (snapshot) => {
-                snapshot.forEach(doc => {
-                    if(email === doc.data().email && password === doc.data().password){
-                        userData= doc.data()
-                        console.log('has loaded')
-                    }  
-                })
-            }).catch(
-                err =>{
-                    CustomAlert(title='Error' , description='No se pudo conectar a base de datos')
-                    setIsLoading(false)
-                }
-            )
-        if(userData === null){
-            CustomAlert(title='Error' , description='Usuario no existe o contraseña incorrecta')
-            setIsLoading(false)
-        }else{
-            setUser(userData)
-            setIsLoading(false)
-            navigation.navigate('home')
-        }    
+        setFirstTry(false)
+
+        if(!firstTry && (email === '' || password === '')){
+            setIsLoading(true)
+            var userData = null
+            const userCollection = firestore().collection('users')
+            await userCollection.get().then(
+                (snapshot) => {
+                    snapshot.forEach(doc => {
+                        if(email === doc.data().email && password === doc.data().password){
+                            userData = doc.data()
+                            console.log('has loaded')
+                        }  
+                    })
+                }).catch(
+                    err =>{
+                        CustomAlert(title='Error' , description='No se pudo conectar a base de datos')
+                        setIsLoading(false)
+                    }
+                )
+            if(userData == null){
+                CustomAlert(title='Error' , description='Usuario no existe o contraseña incorrecta')
+                setIsLoading(false)
+            }else{
+                setUser(userData)
+                setIsLoading(false)
+                navigation.navigate('home')
+            }    
+        }
     }
 
     return (
@@ -97,13 +103,12 @@ const Login = ({navigation, setUser, logoutUser}) => {
                 <View style={LoginStyle.log_cont_login_inputs}>
                     <View>
                         <Text style={LoginStyle.log_text_upinput}>Email</Text>
-                        <View style={LoginStyle.log_text_container}>
-                            <TextInput onChangeText={setEmail} placeholderTextColor="#c4c4c4" placeholder="Ingrese su email" style={LoginStyle.log_textInput}></TextInput>
-                        </View>
+                        <MailField marginTop={0} setValue={setEmail} incomplete={!firstTry && email === ''}/>
                     </View>
+                    
                     <View style={{marginTop: 20}}>
                         <Text style={LoginStyle.log_text_upinput}>Constraseña</Text>
-                        <PasswordField setPassword={setPassword}/>
+                        <PasswordField setValue={setPassword} failToggle={false} incomplete={!firstTry && password === ''}/>
                     </View>
                     <View style={LoginStyle.log_cont_olvcont}>
                         <Pressable style={{width:300}} onPress={() => setModalVisible(true)}>
