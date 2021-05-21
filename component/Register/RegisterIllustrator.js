@@ -22,7 +22,7 @@ const RegisterIllustrator = ({userData,goHomeFunction}) => {
         await userCollection.get().then(
             (snapshot) => {
                 snapshot.forEach(doc => {
-                    if(user.id === doc.data().id && user.place === doc.data().place){
+                    if(user.id === doc.data().id && user.place === doc.data().place && user.email === doc.data().email){
                         userExist = true
                     }
                 })

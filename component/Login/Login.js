@@ -18,7 +18,7 @@ const {height} = Dimensions.get("window")
 
 const Login = ({navigation, setUser, logoutUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [id,setId]=useState("")
+    const [email,setEmail]=useState("")
     const [password,setPassword] = useState("")
     const [isLoading,setIsLoading] = useState(false)
 
@@ -34,30 +34,32 @@ const Login = ({navigation, setUser, logoutUser}) => {
     }
 
     const switchToHome = async () =>{
+
         setIsLoading(true)
-        return await firestore()
-        .collection('users')
-        .doc(id).get().then((doc)=>{
-            console.log('connected')
-            if(!doc.exists || doc.data().password !== password ){
-                CustomAlert(title='Error' , description='Usuario no existe o contraseña incorrecta')
-            }
-            else{
-                if(doc.data().status=='Activo'){
-                    setUser(doc.data())
+        var userData = null
+        const userCollection = firestore().collection('users')
+        await userCollection.get().then(
+            (snapshot) => {
+                snapshot.forEach(doc => {
+                    if(email === doc.data().email && password === doc.data().password){
+                        userData= doc.data()
+                        console.log('has loaded')
+                    }  
+                })
+            }).catch(
+                err =>{
+                    CustomAlert(title='Error' , description='No se pudo conectar a base de datos')
                     setIsLoading(false)
-                    navigation.navigate('home')
                 }
-                else{
-                    setIsLoading(false)
-                    navigation.navigate('wait_screen')
-                }
-            }
+            )
+        if(userData === null){
+            CustomAlert(title='Error' , description='Usuario no existe o contraseña incorrecta')
             setIsLoading(false)
-        }).catch(err =>{
-            CustomAlert(title='Error' , description='No se pudo conectar a base de datos')
-        })
-        
+        }else{
+            setUser(userData)
+            setIsLoading(false)
+            navigation.navigate('home')
+        }    
     }
 
     return (
@@ -94,9 +96,9 @@ const Login = ({navigation, setUser, logoutUser}) => {
                 </View>
                 <View style={LoginStyle.log_cont_login_inputs}>
                     <View>
-                        <Text style={LoginStyle.log_text_upinput}>ID de paciente</Text>
+                        <Text style={LoginStyle.log_text_upinput}>Email</Text>
                         <View style={LoginStyle.log_text_container}>
-                            <TextInput onChangeText={setId} placeholderTextColor="#c4c4c4" placeholder="Ingrese su ID de paciente" style={LoginStyle.log_textInput}></TextInput>
+                            <TextInput onChangeText={setEmail} placeholderTextColor="#c4c4c4" placeholder="Ingrese su email" style={LoginStyle.log_textInput}></TextInput>
                         </View>
                     </View>
                     <View style={{marginTop: 20}}>
