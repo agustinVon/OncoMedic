@@ -60,11 +60,14 @@ const Login = ({navigation, setUser, logoutUser}) => {
             if(userData == null){
                 CustomAlert(title='Error' , description='Usuario no existe o contraseña incorrecta')
                 setIsLoading(false)
+            }else if(userData.status === 'Pendiente'){
+                setIsLoading(false)
+                navigation.navigate('wait_screen')
             }else{
                 setUser(userData)
                 setIsLoading(false)
                 navigation.navigate('home')
-            }    
+            }   
         }
     }
 

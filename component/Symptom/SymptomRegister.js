@@ -66,7 +66,7 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
         .collection('symptoms')
         .add({
             id:id,
-            symptom:symptomLabel,
+            symptom:symptom.label,
             grade:grade,
             date:date,
             cancer:cancer
