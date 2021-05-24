@@ -81,7 +81,7 @@ export const GeneralStyle = StyleSheet.create({
         marginTop: 6,
         paddingLeft:10,
         paddingRight:10,
-        width:300,
+        width:320,
         height:50,
         borderRadius: 10,
         backgroundColor: Colors.inputFieldGrey,
@@ -92,7 +92,7 @@ export const GeneralStyle = StyleSheet.create({
         alignItems:'center',
         flexDirection:'row',
         marginTop: 6,
-        width:300,
+        width:320,
         height:50,
         paddingLeft:10,
         paddingRight:10,
@@ -113,5 +113,23 @@ export const GeneralStyle = StyleSheet.create({
     title:{
         fontSize: FontSizes.titles,
         fontWeight: 'bold',
+    },
+
+    symptom_list:{
+        backgroundColor: Colors.inputFieldGrey,
+        borderRadius:10,
+        width:320,
+        height:100,
+        paddingLeft:10,
+        paddingRight:10
+    },
+
+    symptom_list_item:{
+        marginTop:10
+
+    },
+
+    symptom_list_font:{
+        fontSize:FontSizes.listItems,
     }
 });

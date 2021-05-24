@@ -39,7 +39,7 @@ const Login = ({navigation, setUser, logoutUser}) => {
 
         setFirstTry(false)
 
-        if(!firstTry && (email === '' || password === '')){
+        if(email !== '' || password !== ''){
             setIsLoading(true)
             var userData = null
             const userCollection = firestore().collection('users')

@@ -19,10 +19,7 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
     const [id,setId] = useState(idR)
     const [symptom,setSymptom] = useState(null)
     const [grade,setGrade]= useState(null)
-    const [currentGrades,setCurrentGrades]= useState([])
-    const [symptomDescription,setSymptomDesciption] = useState('')
     const [symptomIsLoaded,setSymptomIsLoaded] = useState(false)
-    const [symptomLabel,setLabel]=useState('')
     const [sLoaded,setSLoaded]=useState([{label: 'LOADING', value:'null', description:'null', gravity:[{label:'Loading',value:0}]}])
     const [isLoading, setIsLoading]= useState(false)
 
@@ -46,18 +43,6 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
     }
 
     useEffect(() => {
-        sLoaded.forEach((simp)=>{
-            if(simp.value === symptom){
-                console.log(simp)
-                setCurrentGrades(simp.gravity)
-                setSymptomDesciption(simp.description)
-                setLabel(simp.label)
-                console.log(simp)
-            }
-        })
-    },[symptom])
-
-    useEffect(() => {
         if(symptomIsLoaded==false){
             getSymptoms().then(
                 setSymptomIsLoaded(!symptomIsLoaded)
@@ -65,9 +50,10 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
         }  
     },[symptomIsLoaded])
     
-    useEffect(() => {
+
+    useEffect(()=>{
         setGrade(null)
-    },[currentGrades])
+    },[symptom])
 
     useEffect(()=>{
         setId(id)
@@ -94,6 +80,7 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
     }
 
     const pushSymptoms = () =>{
+        //TODO cambiar alert
         if(grade == null){
             Alert.alert(
                 "Error",
@@ -132,16 +119,22 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
         <View style={SymptomStyle.symptom_generalView}>
             <View style={pickerOpen? SymptomStyle.symptom_topView_p:SymptomStyle.symptom_topView} >
                 <Text style={SymptomStyle.symptom_text_title}>Sintomas</Text>
-                <SearchPicker items={sLoaded} setItems={setSLoaded} defaultValue={symptom} setValue={setSymptom} placeHolder={'Seleccione su sintoma'} open={pickerOpen} setOpen={setPickerOpen}/>
-                {console.log(symptom)}
-                <View style={{width:'80%'}}>{symptom==null?
-                <Text style={SymptomStyle.symptom_descriptionText}>Descripcion de sintoma</Text>:<Text style={SymptomStyle.symptom_descriptionText}>{symptomDescription}</Text>}</View>
+                <SearchPicker symptoms={sLoaded} setValue={setSymptom} 
+                    placeHolder={'Describa su sintoma'} 
+                    message={'No se a encontrado ningun sintoma \n con esas caracteristicas'}
+                    open={pickerOpen} setOpen={setPickerOpen}/>
+                {!pickerOpen &&
+                    <View style={{width:'80%'}}>
+                    {symptom==null ?
+                    <Text style={SymptomStyle.symptom_descriptionText}>Descripcion de sintoma</Text>:<Text style={SymptomStyle.symptom_descriptionText}>{symptom.description}</Text>}
+                    </View>
+                }
             </View>
             <Image resizeMode={'stretch'} style={SymptomStyle.symptom_imgBack}source={require('../../img/register_deco.png')}/>
-            <View style={pickerOpen? SymptomStyle.symptom_bottomView_p:SymptomStyle.symptom_bottomView}>
+            <View style={pickerOpen ? SymptomStyle.symptom_bottomView_p:SymptomStyle.symptom_bottomView}>
                 <Text style={SymptomStyle.symptom_text_title_bottom}>Grado</Text>
-                {currentGrades.length!=0?
-                <CustomPicker items={currentGrades} defaultValue={grade} setValue={setGrade} placeHolder={'Seleccione un grado'}/>
+                {symptom !== null?
+                <CustomPicker items={symptom.gravity} defaultValue={grade} setValue={setGrade} placeHolder={'Seleccione un grado'}/>
                 : 
                 <Text style={SymptomStyle.no_grade_text}>Seleccione un sintoma</Text>}
                 <View style={{width: '45%' , alignSelf:'center'}}>

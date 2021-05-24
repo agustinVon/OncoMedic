@@ -1,36 +1,70 @@
-import React,{useState} from 'react'
-import DropDownPicker from 'react-native-dropdown-picker'
+import React,{useState,useEffect} from 'react'
 import {StyleSheet, Text} from 'react-native'
+import { Pressable } from 'react-native'
+import { ScrollView } from 'react-native'
 import { View,TextInput } from 'react-native'
+import {GeneralStyle} from '../../styles/GeneralStyle'
+import {IncorrectField} from '../Fields/IncorrectField'
 
-export const SearchPicker = ({items,setItems, defaultValue, setValue, placeHolder,open,setOpen}) => {
+export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , setOpen}) => {
 
+    const [searchText,setSearch] = useState('')
+    const [listOfPossibleSymptoms,setList] = useState(symptoms)
+    const [notFound,setNotFound] = useState(false)
 
+    useEffect(()=>{
+        const lowerSearch = searchText.toLocaleLowerCase()
+        if(searchText !== ''){
+            const auxListOfSymptoms = []
+            symptoms.forEach((symptom)=>{
+                const label = symptom.label.toLowerCase()
+                const desc = symptom.description.toLowerCase()
+                if(label.includes(lowerSearch) || desc.includes(lowerSearch)){
+                    auxListOfSymptoms.push(symptom)
+                }
+            })
+            setList(auxListOfSymptoms)
+            console.log('Lista: ' + listOfPossibleSymptoms)
+            if(listOfPossibleSymptoms == ''){
+                setNotFound(true)
+            }else{
+                setNotFound(false)
+                setOpen(true)
+            }
+        }
+        else{
+            setOpen(false)
+            setNotFound(false)
+        }
+    },[searchText])
+
+    const setSymptom = async (symptom) => {
+        await setSearch(symptom.label)
+        setValue(symptom)
+        setOpen(false)
+    }
 
     return(
-        <DropDownPicker
-            zIndex={10000}
-            open={open}
-            setOpen={setOpen}
-            setItems={setItems}
-            items={items}
-            value={defaultValue}
-            setValue={setValue}
-            style={defaultValue===null? CustomPickerStyle.not_picked:CustomPickerStyle.picked}
-            itemStyle={{justifyContent: 'flex-start'}}
-            containerStyle={CustomPickerStyle.container_style}
-            dropDownContainerStyle={{zIndex:1000, borderWidth:0}}
-            dropDownStyle={{backgroundColor: 'white', zIndex:1000}}
-            placeholder={placeHolder}
-            placeholderStyle={defaultValue==null? CustomPickerStyle.place_holder_style_not_picked : CustomPickerStyle.place_holder_style_picked}
-            searchable={true}
-            searchPlaceholder={'Busque su sintoma...'}
-            searchablePlaceholderTextColor='#AAAAAA'
-            searchTextInputStyle={{borderColor:'#E3E3E3'}}
-            searchContainerStyle={{borderBottomColor:'#E3E3E3'}}
-            searchableError={()=><Text>No se encontró el síntoma que esta buscando</Text>}
-        >
-        </DropDownPicker>
+        <View>
+            <IncorrectField fail={notFound} value={searchText} setValue={setSearch} 
+                placeHolder={placeHolder} 
+                message={message}/>
+            {open === true && notFound === false &&
+            <View style={{marginTop:20 , height:180}}>
+                <ScrollView style={GeneralStyle.symptom_list}>
+                {listOfPossibleSymptoms.map((symptom)=>{
+                    return(
+                    <Pressable key={symptom.value} onPress={()=>setSymptom(symptom)} style={GeneralStyle.symptom_list_item}>
+                    {console.log(symptom)}
+                        <Text style={GeneralStyle.symptom_list_font}>{symptom.label}</Text>
+                    </Pressable>
+                    )
+                })}
+                </ScrollView>
+            </View>
+            } 
+        </View>
+        
     )
 }
 

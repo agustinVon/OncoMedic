@@ -26,6 +26,7 @@ export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
         :
         <View style={CustomPickerStyle.picked}>
             <Picker
+            style={{justifyContent:'center'}}
             selectedValue={defaultValue}
             onValueChange={(itemValue) => setValue(itemValue)}>
                 {items.map((item) => <Picker.Item label={item.label} value={item.value}/>)}
@@ -60,6 +61,10 @@ const CustomPickerStyle= StyleSheet.create({
     },
 
     picked:{
+        alignSelf:'center',
+        justifyContent:'center',
+        alignContent:'center',
+        width:320,
         borderTopLeftRadius:10,
         borderTopRightRadius:10, 
         borderBottomLeftRadius:10, 
