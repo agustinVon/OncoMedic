@@ -16,16 +16,19 @@ const AvatarChanger = ({navigation,avatarData,id,setAvatarAction}) => {
     const [avatar,setAvatar] = useState(avatarData)
     const [avatarSelected,setAvatarSelected] = useState(avatarData)
 
-    const updateToFireStore= () =>{
-        const userDocument = firestore()
-        .collection('users')
-        .doc(id)
-        .update({
-            avatar: avatar
-        })
-        .then(() => {
-            console.log('User avatar updated!');
-        })
+    const updateToFireStore= async () =>{
+
+        const userCollection = firestore().collection('users')
+        await userCollection.get().then(
+            (snapshot) => {
+                snapshot.forEach(doc => {
+                    if(id === doc.data().id){
+                        userCollection.doc(doc.id).update({
+                            avatar: avatar
+                        })
+                    }
+                })
+            })
     }
 
     useEffect(()=>{
