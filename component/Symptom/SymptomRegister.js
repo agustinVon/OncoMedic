@@ -9,11 +9,12 @@ import { Alert } from 'react-native'
 import {ActivityIndicator} from 'react-native-paper';
 import {SearchPicker} from '../commonComponents/Pickers/SearchPicker'
 import {CustomPicker} from '../commonComponents/Pickers/CommonPicker'
+import {setSymptomRedux} from '../../reduxStore/actions/symptomActions'
 
 const {width} = Dimensions.get('window')
 
 
-const SymptomRegister = ({navigation,idR,cancer}) => {
+const SymptomRegister = ({navigation,idR,symptoms,cancer,setSymptomRedux}) => {
 
     const [pickerOpen,setPickerOpen] = useState(false)
     const [id,setId] = useState(idR)
@@ -24,17 +25,14 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
     const [isLoading, setIsLoading]= useState(false)
 
     const getSymptoms = async()=>{
-        var i=0
+        let i=0
         const sL = []
         const sLDb = firestore().collection('mainSymptoms')
         await sLDb.get().then(
             (snapshot) => {
                 snapshot.forEach(doc => {
-                    i = i+1
-                    console.log(i)
-                    console.log(doc.data().label)
                     if (doc.data().cancer==cancer|| doc.data().cancer=='comun' ){
-                        sL.push({label:doc.data().label,value:i,description:doc.data().descripcion,gravity:doc.data().gravity})
+                        sL.push({label:doc.data().label,value:++i,description:doc.data().descripcion,gravity:doc.data().gravity})
                     } 
                 })
             }
@@ -79,6 +77,10 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
         });
     }
 
+    const moveToSummary = () =>{
+        navigation.navigate('symp_summary')
+    }
+
     const pushSymptoms = () =>{
         //TODO cambiar alert
         if(grade == null){
@@ -93,26 +95,10 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
             )
         }
         else{
-            if(grade>5){
-                console.log(grade)
-                Alert.alert(
-                    "Advertencia",
-                    "Se sugiere su visita a un hospital",
-                    [
-                        {
-                            text: 'OK',
-                            onPress:() => firestoreSave()
-                        }
-                    ]
-                )
-            }else{
-                firestoreSave()
-            }
+            const auxiliarSymptoms = symptoms
+            setSymptomRedux([...auxiliarSymptoms,{symptom:symptom.label , grade:grade}])
+            moveToSummary()
         }
-    }
-
-    const pickedSymptom = (item) =>{
-        
     }
 
     return (
@@ -151,6 +137,7 @@ const SymptomRegister = ({navigation,idR,cancer}) => {
         
     )
 }
+
 
 const SymptomStyle=StyleSheet.create({
 
@@ -265,7 +252,12 @@ const mapStateToProps = (state) => {
     return {
         idR: state.user_data.id,
         cancer: state.user_data.cancer,
+        symptoms:state.symptom_data.symptoms
     }
 }
 
-export default connect(mapStateToProps)(SymptomRegister)
+const mapDispatchToProps = {
+    setSymptomRedux
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SymptomRegister)

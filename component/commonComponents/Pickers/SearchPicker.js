@@ -24,7 +24,6 @@ export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , 
                 }
             })
             setList(auxListOfSymptoms)
-            console.log('Lista: ' + listOfPossibleSymptoms)
             if(listOfPossibleSymptoms == ''){
                 setNotFound(true)
             }else{
@@ -48,14 +47,14 @@ export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , 
         <View>
             <IncorrectField fail={notFound} value={searchText} setValue={setSearch} 
                 placeHolder={placeHolder} 
-                message={message}/>
+                message={message}
+                ifOnFocus={()=>console.log('hola')}/>
             {open === true && notFound === false &&
             <View style={{marginTop:20 , height:180}}>
                 <ScrollView style={GeneralStyle.symptom_list}>
                 {listOfPossibleSymptoms.map((symptom)=>{
                     return(
                     <Pressable key={symptom.value} onPress={()=>setSymptom(symptom)} style={GeneralStyle.symptom_list_item}>
-                    {console.log(symptom)}
                         <Text style={GeneralStyle.symptom_list_font}>{symptom.label}</Text>
                     </Pressable>
                     )

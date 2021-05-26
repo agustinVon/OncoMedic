@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Pressable } from 'react-native'
 import { SafeAreaView,View,Text,StyleSheet,Dimensions,Image,Button } from 'react-native'
+import {useFocusEffect} from '@react-navigation/native'
 import {ButtonCustomeHome} from '../Buttons/ButtonCustomeHome.js'
 import { connect } from 'react-redux'
 import {AvatarImage} from '../AvatarImage'
@@ -10,6 +11,7 @@ const {width} = Dimensions.get('window')
 const Home = ({navigation, avatarData, name}) => {
 
     const [avatar,setAvatar] = useState(avatarData)
+
 
     useEffect(()=>{
         setAvatar(avatarData)
@@ -129,5 +131,6 @@ const mapStateToProps = (state) => {
         name: state.user_data.name
     }
 }
+
 
 export default connect(mapStateToProps)(Home)
