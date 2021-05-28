@@ -174,6 +174,19 @@ export const GeneralStyle = StyleSheet.create({
         padding:10
     },
 
+    symptom_item_add:{
+        alignContent:'center',
+        justifyContent:'center',
+        alignItems:'center',
+        width:'100%',
+        height:50,
+        borderRadius:10,
+        marginBottom:10,
+        backgroundColor:Colors.inputFieldGrey,
+        flexDirection:'row',
+        padding:10
+    },
+
     symptom_item_text:{
         textAlignVertical:'center',
         marginLeft:3,
@@ -181,6 +194,15 @@ export const GeneralStyle = StyleSheet.create({
         flex:1,
         fontSize:FontSizes.symptoms,
         fontWeight:'bold',
+    },
+
+    symptom_item_add_text:{
+        textAlignVertical:'center',
+        justifyContent:'center',
+        textAlign:'center',
+        height:'100%',
+        flex:1,
+        fontSize:FontSizes.symptoms,
     },
 
     symptom_item_miniText:{

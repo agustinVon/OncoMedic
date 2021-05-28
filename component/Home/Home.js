@@ -22,7 +22,7 @@ const Home = ({navigation, avatarData, name}) => {
     }
 
     const switchSymptomsRegister = () =>{
-        navigation.navigate('registro_sintoma')
+        navigation.navigate('registro_sintoma',{preSymptom:null,preGrade:null})
     }
 
     const switchAvatarChanger = () => {

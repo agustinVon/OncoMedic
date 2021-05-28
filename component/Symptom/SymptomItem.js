@@ -16,13 +16,13 @@ export const SymptomItem = ({symptom,deleteSymptom,editSymptom,key}) =>{
             onPress={()=>setPress(false)}>
                 <View style={{flexDirection:'row',flex:1, width:'100%', justifyContent:'space-between',alignContent:'center'}}>
                     <Text style={GeneralStyle.symptom_item_text} > { symptom.symptom } </Text>
-                    <Pressable style={GeneralStyle.symptom_item_logo} onPress={() => deleteSymptom()}>
+                    <Pressable style={GeneralStyle.symptom_item_logo} onPress={() => deleteSymptom(symptom.symptom)}>
                         <Icon name={'delete'} color={'black'} size={20}/>
                     </Pressable>
                 </View>
                 <View style={{flexDirection:'row' ,flex:1,marginTop:10 , width:'100%', justifyContent:'space-between',alignContent:'center'}}>
                     <Text style={GeneralStyle.symptom_item_miniText} > Grado {symptom.grade} </Text>
-                    <Pressable style={GeneralStyle.symptom_item_logo} onPress={() => deleteSymptom()}>
+                    <Pressable style={GeneralStyle.symptom_item_logo} onPress={() => editSymptom(symptom.symptom,symptom.grade)}>
                         <Icon name={'edit'} color={'black'} size={20}/>
                     </Pressable>
                 </View>
@@ -31,7 +31,7 @@ export const SymptomItem = ({symptom,deleteSymptom,editSymptom,key}) =>{
             <Pressable style={GeneralStyle.symptom_item_not_pressed}
             onPress={()=>setPress(true)}>
                 <Text style={GeneralStyle.symptom_item_text} > { symptom.symptom } </Text>
-                <Pressable style={GeneralStyle.symptom_item_logo} onPress={() => console.log('delete')}>
+                <Pressable style={GeneralStyle.symptom_item_logo} onPress={() => deleteSymptom(symptom.symptom)}>
                         <Icon name={'delete'} color={'black'} size={20}/>
                     </Pressable>
             </Pressable>
