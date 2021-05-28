@@ -7,11 +7,13 @@ import { connect } from 'react-redux'
 
 const SymptomContainer = ({symptoms}) =>{
 
+
     return(
         <View style={GeneralStyle.symptom_container}>
             <ScrollView>
-                {symptoms.map(item => {
-                    return(<SymptomItem symptom={{symptom:item.symptom, grade:item.grade}}/>)
+                {Array.from(symptoms.values()).map((value) => {
+                    console.log(value)
+                    return(<SymptomItem symptom={value}/>)
                 })}
             </ScrollView>
         </View>

@@ -32,7 +32,6 @@ export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , 
             }
         }
         else{
-            setOpen(false)
             setNotFound(false)
         }
     },[searchText])
@@ -48,7 +47,7 @@ export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , 
             <IncorrectField fail={notFound} value={searchText} setValue={setSearch} 
                 placeHolder={placeHolder} 
                 message={message}
-                ifOnFocus={()=>console.log('hola')}/>
+                ifOnFocus={()=>setOpen(true)}/>
             {open === true && notFound === false &&
             <View style={{marginTop:20 , height:180}}>
                 <ScrollView style={GeneralStyle.symptom_list}>

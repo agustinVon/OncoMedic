@@ -4,12 +4,13 @@ import {GeneralStyle} from '../styles/GeneralStyle'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Colors } from '../styles/Colors'
 
-export const SymptomItem = ({symptom,deleteSymptom,editSymptom}) =>{
+export const SymptomItem = ({symptom,deleteSymptom,editSymptom,key}) =>{
 
     const [pressed, setPress] = useState(false)
 
     return(
         <View>
+            {console.log(symptom)}
             {pressed?
             <Pressable style={GeneralStyle.symptom_item_pressed}
             onPress={()=>setPress(false)}>

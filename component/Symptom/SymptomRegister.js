@@ -49,8 +49,13 @@ const SymptomRegister = ({navigation,idR,symptoms,cancer,setSymptomRedux}) => {
     },[symptomIsLoaded])
     
 
-    useEffect(()=>{
-        setGrade(null)
+    useEffect(()=>{  
+        if(symptom !== null){
+            setGrade(symptom.gravity[0].value)
+        }
+        else{
+            setGrade(null)
+        }
     },[symptom])
 
     useEffect(()=>{
@@ -83,7 +88,7 @@ const SymptomRegister = ({navigation,idR,symptoms,cancer,setSymptomRedux}) => {
 
     const pushSymptoms = () =>{
         //TODO cambiar alert
-        if(grade == null){
+        if(grade === null){
             Alert.alert(
                 "Error",
                 "Seleccione un sintoma y un grado",
@@ -96,7 +101,8 @@ const SymptomRegister = ({navigation,idR,symptoms,cancer,setSymptomRedux}) => {
         }
         else{
             const auxiliarSymptoms = symptoms
-            setSymptomRedux([...auxiliarSymptoms,{symptom:symptom.label , grade:grade}])
+            auxiliarSymptoms.set(key=symptom.label,value={symptom:symptom.label,grade:grade})
+            setSymptomRedux(auxiliarSymptoms)
             moveToSummary()
         }
     }
@@ -216,7 +222,7 @@ const SymptomStyle=StyleSheet.create({
     symptom_topView_p:{
         zIndex:100000,
         backgroundColor: "#B189F8",
-        flex:6,
+        flex:10,
         justifyContent:'flex-start',
         alignItems:'center',
         flexDirection:'column',

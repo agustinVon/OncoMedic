@@ -4,7 +4,7 @@ const default_symptom ={
     id:'',
     date:'',
     cancer:'',
-    symptoms:[]
+    symptoms:new Map()
 }
 
 const symptom_data = (state = default_symptom, action) => {
@@ -34,7 +34,7 @@ const symptom_data = (state = default_symptom, action) => {
                 id: '',
                 date:'',
                 cancer:'',
-                symptoms:[]
+                symptoms: new Map()
             }
         }
 

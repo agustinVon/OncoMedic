@@ -97,7 +97,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                             <View style={{marginTop: 25, zIndex:40}}>
                                 <View>
                                     <Text style={RegisterUser.reguse_text_upinput}>Género</Text>
-                                    <View>
+                                    <View style={{marginTop:8}}>
                                         <CustomPicker items={genderTypes} defaultValue={gender} setValue={setGender} placeHolder={'Seleccione su genero'}/>
                                     </View>
                                 </View>
@@ -189,6 +189,7 @@ const RegisterUser = StyleSheet.create({
     reguse_text_upinput:{
         color:"#AAAAAA",
         fontSize: 17,
+        marginLeft:10
     },
     reguse_textInput:{
         marginTop: 6,
@@ -201,7 +202,7 @@ const RegisterUser = StyleSheet.create({
     },
     reguse_date_picker_container:{
         marginTop: 6,
-        width:300,
+        width:320,
         height:50,
         padding: 10,
         borderRadius: 10,
@@ -223,6 +224,8 @@ const RegisterUser = StyleSheet.create({
         backgroundColor: "#E3E3E3",   
     },
     reguse_cont_regusein_inputs:{
+        alignContent:'center',
+        alignItems:'center',
         flexDirection: 'column',
         width:300,
         alignSelf: 'center',
