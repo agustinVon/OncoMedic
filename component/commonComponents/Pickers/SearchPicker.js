@@ -6,8 +6,9 @@ import { View,TextInput } from 'react-native'
 import {GeneralStyle} from '../../styles/GeneralStyle'
 import {IncorrectField} from '../Fields/IncorrectField'
 
-export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , setOpen}) => {
+export const SearchPicker = ({symptoms,value, setValue, placeHolder, message , open , setOpen, lock}) => {
 
+    
     const [searchText,setSearch] = useState('')
     const [listOfPossibleSymptoms,setList] = useState(symptoms)
     const [notFound,setNotFound] = useState(false)
@@ -24,7 +25,6 @@ export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , 
                 }
             })
             setList(auxListOfSymptoms)
-            console.log('Lista: ' + listOfPossibleSymptoms)
             if(listOfPossibleSymptoms == ''){
                 setNotFound(true)
             }else{
@@ -33,8 +33,8 @@ export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , 
             }
         }
         else{
-            setOpen(false)
             setNotFound(false)
+            setOpen(false)
         }
     },[searchText])
 
@@ -46,16 +46,18 @@ export const SearchPicker = ({symptoms, setValue, placeHolder, message , open , 
 
     return(
         <View>
-            <IncorrectField fail={notFound} value={searchText} setValue={setSearch} 
+            {console.log('value =' + value)}
+            <IncorrectField fail={notFound} value={value===null? searchText: value} setValue={setSearch} 
                 placeHolder={placeHolder} 
-                message={message}/>
+                message={message}
+                ifOnFocus={()=>setOpen(true)}
+                lock={lock}/>
             {open === true && notFound === false &&
             <View style={{marginTop:20 , height:180}}>
                 <ScrollView style={GeneralStyle.symptom_list}>
                 {listOfPossibleSymptoms.map((symptom)=>{
                     return(
                     <Pressable key={symptom.value} onPress={()=>setSymptom(symptom)} style={GeneralStyle.symptom_list_item}>
-                    {console.log(symptom)}
                         <Text style={GeneralStyle.symptom_list_font}>{symptom.label}</Text>
                     </Pressable>
                     )

@@ -38,6 +38,7 @@ const user_data = (state=default_user , action) =>{
         case SET_USER_LOGOUT:{
             console.log('user log succesfully')
             return{
+                ...state,
                 ...default_user
             }
         }
@@ -149,7 +150,7 @@ const user_data = (state=default_user , action) =>{
                 avatar:action.payload.avatar
             }
         }
-        default: return default_user;
+        default: return state;
     }
 }
 

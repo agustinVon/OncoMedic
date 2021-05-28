@@ -25,6 +25,7 @@ export const CustomPicker = ({items, defaultValue, setValue, placeHolder}) => {
         </DropDownPicker>
         :
         <View style={CustomPickerStyle.picked}>
+            {console.log(items)}
             <Picker
             style={{justifyContent:'center'}}
             selectedValue={defaultValue}

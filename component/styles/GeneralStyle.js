@@ -131,5 +131,93 @@ export const GeneralStyle = StyleSheet.create({
 
     symptom_list_font:{
         fontSize:FontSizes.listItems,
+    },
+
+    symptom_sum_view:{
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center',
+        backgroundColor:Colors.violet,
+        paddingRight:'10%',
+        paddingLeft:'10%',
+        flex:1,
+    },
+
+    symptom_container:{
+        width:'100%',
+        borderRadius:10,
+        justifyContent:'center',
+        alignContent:'center',
+        height:'70%',
+        padding:10,
+        backgroundColor:'white'
+    },
+
+    symptom_item_not_pressed:{
+        justifyContent:'space-between',
+        width:'100%',
+        height:70,
+        borderRadius:10,
+        marginBottom:10,
+        backgroundColor:Colors.inputFieldGrey,
+        flexDirection:'row',
+        padding:10
+    },
+
+    symptom_item_pressed:{
+        width:'100%',
+        height:120,
+        borderRadius:10,
+        marginBottom:10,
+        backgroundColor:Colors.inputFieldGrey,
+        flexDirection:'column',
+        padding:10
+    },
+
+    symptom_item_add:{
+        alignContent:'center',
+        justifyContent:'center',
+        alignItems:'center',
+        width:'100%',
+        height:50,
+        borderRadius:10,
+        marginBottom:10,
+        backgroundColor:Colors.inputFieldGrey,
+        flexDirection:'row',
+        padding:10
+    },
+
+    symptom_item_text:{
+        textAlignVertical:'center',
+        marginLeft:3,
+        height:'100%',
+        flex:1,
+        fontSize:FontSizes.symptoms,
+        fontWeight:'bold',
+    },
+
+    symptom_item_add_text:{
+        textAlignVertical:'center',
+        justifyContent:'center',
+        textAlign:'center',
+        height:'100%',
+        flex:1,
+        fontSize:FontSizes.symptoms,
+    },
+
+    symptom_item_miniText:{
+        fontSize:FontSizes.registerQuerys,
+        alignSelf:'flex-start',
+    },
+
+    symptom_item_logo:{
+        height:40,
+        width:40,
+        backgroundColor : Colors.textGrey,
+        borderRadius:100,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center',
+        alignSelf:'center'
     }
 });
