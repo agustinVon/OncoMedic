@@ -104,12 +104,12 @@ const Login = ({navigation, setUser, logoutUser}) => {
                     <Text style={LoginStyle.log_text_in}>Sesión</Text>
                 </View>
                 <View style={LoginStyle.log_cont_login_inputs}>
-                    <View>
+                    <View style={{alignSelf:'center'}}>
                         <Text style={LoginStyle.log_text_upinput}>Email</Text>
                         <MailField marginTop={0} setValue={setEmail} incomplete={!firstTry && email === ''}/>
                     </View>
                     
-                    <View style={{marginTop: 20}}>
+                    <View style={{marginTop: 20, alignSelf:'center'}}>
                         <Text style={LoginStyle.log_text_upinput}>Constraseña</Text>
                         <PasswordField setValue={setPassword} failToggle={false} incomplete={!firstTry && password === ''}/>
                     </View>
@@ -201,7 +201,6 @@ const LoginStyle = StyleSheet.create({
         width:300,
         marginTop: 20,
         alignSelf:'center',
-        alignItems:'center'
     },
     log_top_color:{
         backgroundColor:"#B189F8",

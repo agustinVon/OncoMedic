@@ -9,21 +9,20 @@ import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import firestore from '@react-native-firebase/firestore';
 
 const SymptomSummary = ({navigation, cleanSymptoms,symptoms,id,cancer}) => {
-
-    const [danger,setDanger] = useState(false)
     
     const editSymptom = (symptom , grade) =>{
         console.log(symptom)
         navigation.navigate('registro_sintoma',{preSymptom :symptom , preGrade: grade})
     }
 
-    const alertUser = () =>{
-        //todo set danger
-        danger &&  CustomAlert(title='Aviso',desctription='Se recomienda su visita a un medico')
+    const evaluateDangers = () =>{
+        
+        symptoms.forEach((value)=>{
+            CustomAlert(title='Aviso',description='Se recomienda su visita a un medico')
+        })
     }
 
     const pushSymptoms = () =>{
-        alertUser()
         const date = new Date()
         firestore()
         .collection('symptoms')
@@ -34,8 +33,10 @@ const SymptomSummary = ({navigation, cleanSymptoms,symptoms,id,cancer}) => {
             symptoms: Array.from(symptoms.values())
         })
         .then(() => {
+            evaluateDangers()
             cleanSymptoms()
-            navigation.navigate('status',{text:"Registro de sintomas"})
+            
+            //navigation.navigate('status',{text:"Registro de sintomas"})
         })
         .catch((error) => {
             navigation.navigate('fail',{e:error})
