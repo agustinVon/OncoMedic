@@ -101,9 +101,9 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
                             </View>
                                     
                         </View>
-                        <View style={{marginTop: 25}}>
-                            <Text style={RegisterUser.reguse_text_upinput}>Id de paciente</Text>
-                            <TextInput keyboardType={'numeric'} onChangeText={setId} value={id} maxLength={10} placeholder="Ingrese su ID de paciente" placeholderTextColor="#c4c4c4" style={RegisterUser.reguse_textInput }></TextInput>
+                        <View style={{marginTop: 25,alignSelf:'center'}}>
+                            <Text style={RegisterUser.reguse_text_upinput}>Nro. historia medica</Text>
+                            <TextInput keyboardType={'numeric'} onChangeText={setId} value={id} maxLength={10} placeholder="Ingrese su historia medica" placeholderTextColor="#c4c4c4" style={RegisterUser.reguse_textInput }></TextInput>
                         </View>
                         <ButtonCustomeOrange title={"Continuar"} handleFunction={handleSwitchToRegisterMedic} marginT={{marginTop: 50}}/>
                     </View>
@@ -157,7 +157,7 @@ const RegisterUser = StyleSheet.create({
     },
     reguse_textInput:{
         marginTop: 6,
-        width:300,
+        width:320,
         height:50,
         fontSize: 17,
         padding: 10,

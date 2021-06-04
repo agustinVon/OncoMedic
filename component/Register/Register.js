@@ -91,7 +91,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                             </View>
                             <View style={{marginTop:25}}>
                                 <Text style={RegisterUser.reguse_text_upinput}>Contraseña</Text>
-                                <PasswordField setValue={setPassword} failToggle={true} incomplete={!firstTry && password.length<1}/>
+                                <PasswordField setValue={setPassword} failToggle={true}/>
                             </View>
                             
                             <View style={{marginTop: 25, zIndex:40}}>

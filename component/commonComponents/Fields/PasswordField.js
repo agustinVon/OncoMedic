@@ -8,7 +8,7 @@ import { Text } from 'react-native';
 import { Pressable } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
-export const PasswordField = ({setValue,failToggle,incomplete}) =>{
+export const PasswordField = ({setValue,failToggle}) =>{
     const [passwordIsHidden,setPasswordHidden] = useState(true)
     const [password, setPassword] = useState('')
     const [passwordIsValid, setPasswordIsValid] = useState(false)
@@ -41,33 +41,31 @@ export const PasswordField = ({setValue,failToggle,incomplete}) =>{
     const checkIfCapital = (pass_aux) => {
         if(pass_aux.match(/[A-Z]/)) { 
             setOneMayusc(true)
-            setPasswordIsValid(false)
         } else setOneMayusc(false)
     }
 
     const checkIfNotCapital = (pass_aux) => {
         if(pass_aux.match(/[a-z]/)) { 
             setOneNotMayusc(true)
-            setPasswordIsValid(false)
         } else setOneNotMayusc(false)
     }
 
     const chechIfNumber = (pass_aux) => {
         if(/\d/.test(pass_aux)) {
             setOneNumber(true)
-            setPasswordIsValid(false)
         } else setOneNumber(false)
     }
 
     const checkIfEightChar = (pass_aux) => {
         if(pass_aux.length>=8) {
             setEightChar(true)
-            setPasswordIsValid(false)
         } else setEightChar(false)
     }
 
     return(
             <View>
+                {console.log(password)}
+                {console.log('password valid = '+passwordIsValid)}
                 <View style={pressed ? (passwordIsValid) ?  GeneralStyle.field_multiple: GeneralStyle.field_incorrect:GeneralStyle.field_multiple}>
                     <TextInput 
                             onFocus={()=>(setPressed(true))}

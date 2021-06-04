@@ -27,7 +27,7 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
     const smokeOptions = [{label:'Fumo actualmente' ,value:1},
                         {label:'Fumaba', value:2},
                         {label: 'No', value:0}]
-    const smokeDetails = ['¿Cantidad por dia?', '¿Cuantos meses fumaste?']
+    const smokeDetails = ['¿Cantidad de cigarrillos por dia?', '¿Cuantos meses fumaste?']
     const dbtOptions= [{label:'Si', value:1},{label:'No', value:0}]   
     const meds = [{label:"Insulina",value:'Insulina'},
                 {label:"Metmorfina",value:"Metmorfina"},
@@ -82,7 +82,6 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
                     {
                         smokeState != 0 && <BigSliderFields options={smokeDetails} setValue={[setQnt,setSmokeTime]} image={require("../../img/ic_smoke.png")} type={SliderType.register}/>
                     }
-                    {console.log(sQnt)}
                 <SliderButtons options={dbtOptions} text={"¿TENES DIABETES?"}
                 image={require("../../img/ic_diabetic.png")} setValue={setDbt}
                 type={SliderType.register}/>
