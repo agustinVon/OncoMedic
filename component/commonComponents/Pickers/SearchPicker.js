@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import { render } from 'react-dom'
 import {StyleSheet, Text} from 'react-native'
 import { Pressable } from 'react-native'
 import { ScrollView } from 'react-native'
@@ -9,34 +10,47 @@ import {IncorrectField} from '../Fields/IncorrectField'
 export const SearchPicker = ({symptoms,value, setValue, placeHolder, message , open , setOpen, lock}) => {
 
     
-    const [searchText,setSearch] = useState('')
+    const [searchText,setSearch] = useState(value)
     const [listOfPossibleSymptoms,setList] = useState(symptoms)
     const [notFound,setNotFound] = useState(false)
 
+
+
     useEffect(()=>{
-        const lowerSearch = searchText.toLocaleLowerCase()
-        if(searchText !== ''){
-            const auxListOfSymptoms = []
-            symptoms.forEach((symptom)=>{
-                const label = symptom.label.toLowerCase()
-                const desc = symptom.description.toLowerCase()
-                if(label.includes(lowerSearch) || desc.includes(lowerSearch)){
-                    auxListOfSymptoms.push(symptom)
+        if(!lock){
+            console.log('--------cambio-------')
+            if(searchText !== '' && searchText !== null){
+                const lowerSearch = searchText.toLocaleLowerCase()
+                const auxListOfSymptoms = []
+                symptoms.forEach((symptom)=>{
+                    const label = symptom.label.toLowerCase()
+                    const desc = symptom.description.toLowerCase()
+                    if(label.includes(lowerSearch) || desc.includes(lowerSearch)){
+                        auxListOfSymptoms.push(symptom)
+                    }
+                })
+                setList(auxListOfSymptoms)
+                if(listOfPossibleSymptoms === ''){
+                    setNotFound(true)
+                }else{
+                    setNotFound(false)
+                    setOpen(true)
                 }
-            })
-            setList(auxListOfSymptoms)
-            if(listOfPossibleSymptoms == ''){
-                setNotFound(true)
-            }else{
+            }
+            else{
+                setValue(null)
                 setNotFound(false)
-                setOpen(true)
+                setOpen(false)
             }
         }
         else{
-            setNotFound(false)
-            setOpen(false)
+            setSearch(value)
         }
     },[searchText])
+
+    useEffect(()=>{
+        setSearch(value)
+    },[value])
 
     const setSymptom = async (symptom) => {
         await setSearch(symptom.label)
@@ -46,11 +60,10 @@ export const SearchPicker = ({symptoms,value, setValue, placeHolder, message , o
 
     return(
         <View>
-            {console.log('value =' + value)}
-            <IncorrectField fail={notFound} value={value===null? searchText: value} setValue={setSearch} 
+            {console.log('value searchtext=' + searchText)}
+            <IncorrectField fail={notFound} value={searchText} setValue={setSearch} 
                 placeHolder={placeHolder} 
                 message={message}
-                ifOnFocus={()=>setOpen(true)}
                 lock={lock}/>
             {open === true && notFound === false &&
             <View style={{marginTop:20 , height:180}}>

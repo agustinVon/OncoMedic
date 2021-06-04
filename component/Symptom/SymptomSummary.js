@@ -1,20 +1,29 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { View,Image } from 'react-native'
 import {GeneralStyle} from '../styles/GeneralStyle'
 import SymptomContainer from './SymptomContainer'
 import {ButtonCustomeWhite} from '../Buttons/ButtonCustomeWhite'
 import {cleanSymptoms} from '../../reduxStore/actions/symptomActions'
 import { connect } from 'react-redux'
+import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import firestore from '@react-native-firebase/firestore';
 
 const SymptomSummary = ({navigation, cleanSymptoms,symptoms,id,cancer}) => {
+
+    const [danger,setDanger] = useState(false)
     
     const editSymptom = (symptom , grade) =>{
         console.log(symptom)
         navigation.navigate('registro_sintoma',{preSymptom :symptom , preGrade: grade})
     }
 
+    const alertUser = () =>{
+        //todo set danger
+        danger &&  CustomAlert(title='Aviso',desctription='Se recomienda su visita a un medico')
+    }
+
     const pushSymptoms = () =>{
+        alertUser()
         const date = new Date()
         firestore()
         .collection('symptoms')

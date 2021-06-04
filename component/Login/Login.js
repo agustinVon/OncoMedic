@@ -200,6 +200,8 @@ const LoginStyle = StyleSheet.create({
         flexDirection: 'column',
         width:300,
         marginTop: 20,
+        alignSelf:'center',
+        alignItems:'center'
     },
     log_top_color:{
         backgroundColor:"#B189F8",
@@ -231,9 +233,11 @@ const LoginStyle = StyleSheet.create({
     },
     log_cont_login:{
         marginTop: 20,
+        alignSelf:'center',
     },
     log_cont_login_inside:{
         flexDirection: 'row',  
+        alignItems:'center',
     },
     log_cont:{
         width,
@@ -242,6 +246,7 @@ const LoginStyle = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor:"#FFFFFF",
         alignItems: 'center',
+        alignSelf:'center'
     }
 })
 

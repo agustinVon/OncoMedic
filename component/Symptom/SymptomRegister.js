@@ -83,6 +83,7 @@ const SymptomRegister = ({navigation,idR,symptoms,cancer,setSymptomRedux,route})
         }
         else{
             setGrade(null)
+            setSymptom(null)
         }
     },[symptom])
 
@@ -127,7 +128,8 @@ const SymptomRegister = ({navigation,idR,symptoms,cancer,setSymptomRedux,route})
             <View style={pickerOpen? SymptomStyle.symptom_topView_p:SymptomStyle.symptom_topView} >
                 <Text style={SymptomStyle.symptom_text_title}>Sintomas</Text>
                 {console.log('presintoma =' + preSymptom)}
-                <SearchPicker value = {preSymptom!==null ? preSymptom:null} symptoms={sLoaded} setValue={setSymptom} 
+                {console.log('value: ' + JSON.stringify(symptom!==null ? symptom.label:'void'))}
+                <SearchPicker value = {symptom===null?null:symptom.label} symptoms={sLoaded} setValue={setSymptom} 
                     placeHolder={'Describa su sintoma'} 
                     message={'No se a encontrado ningun sintoma \n con esas caracteristicas'}
                     open={pickerOpen} setOpen={setPickerOpen}

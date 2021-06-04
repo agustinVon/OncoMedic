@@ -165,8 +165,9 @@ export const GeneralStyle = StyleSheet.create({
     },
 
     symptom_item_pressed:{
+        justifyContent:'space-between',
         width:'100%',
-        height:120,
+        height:130,
         borderRadius:10,
         marginBottom:10,
         backgroundColor:Colors.inputFieldGrey,

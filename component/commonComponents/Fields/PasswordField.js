@@ -19,11 +19,18 @@ export const PasswordField = ({setValue,failToggle,incomplete}) =>{
     const [pressed,setPressed] = useState(false)
 
     useEffect(() => {
-        const pass_aux = password; 
-        checkIfCapital(pass_aux)
-        checkIfNotCapital(pass_aux)
-        chechIfNumber(pass_aux)
-        checkIfEightChar(pass_aux)
+        if(failToggle){
+            const pass_aux = password; 
+            checkIfCapital(pass_aux)
+            checkIfNotCapital(pass_aux)
+            chechIfNumber(pass_aux)
+            checkIfEightChar(pass_aux)
+            passwordIsValid && setValue(password)
+        }
+        else{
+            setValue(password)
+        }
+        
     }, [password])
 
     useEffect(()=>{
