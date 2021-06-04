@@ -15,11 +15,20 @@ const SymptomSummary = ({navigation, cleanSymptoms,symptoms,id,cancer}) => {
         navigation.navigate('registro_sintoma',{preSymptom :symptom , preGrade: grade})
     }
 
-    const evaluateDangers = () =>{
-        
-        symptoms.forEach((value)=>{
-            CustomAlert(title='Aviso',description='Se recomienda su visita a un medico')
+    const evaluateDangers =() =>{
+        let danger = false
+        const arrSym = Array.from(symptoms.values())
+        arrSym.forEach((symptom)=>{
+            console.log(symptom.grade)
+            if(symptom.grade > 5){
+                console.log('trigger')
+                danger=true
+            } 
         })
+        console.log(danger)
+        if(arrSym.length > 2) danger = true
+        console.log(danger)
+        danger ? navigation.navigate('danger') : navigation.navigate('status',{text:"Registro de sintomas"})
     }
 
     const pushSymptoms = () =>{
@@ -35,8 +44,6 @@ const SymptomSummary = ({navigation, cleanSymptoms,symptoms,id,cancer}) => {
         .then(() => {
             evaluateDangers()
             cleanSymptoms()
-            
-            //navigation.navigate('status',{text:"Registro de sintomas"})
         })
         .catch((error) => {
             navigation.navigate('fail',{e:error})

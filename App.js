@@ -48,6 +48,7 @@ import { SucessStatus } from './component/StatusActions/SucessStatus';
 import { FailStatus } from './component/StatusActions/FailStatus';
 import { WaitingForApproval } from './component/StatusActions/WaitingForApproval';
 import SymptomSummary from './component/Symptom/SymptomSummary'
+import { DangerStatus } from './component/StatusActions/DangerStatus.js';
 const dotenv = require('dotenv')
 
 
@@ -83,6 +84,7 @@ const App: () => Node = () => {
           <Stack.Screen  name='register_almost' component={RegisterAlmostFinished} options={{header: ()=> null}}/>
           <Stack.Screen  name='wait_screen' component={WaitingForApproval} options={{header: ()=> null}}/>
           <Stack.Screen  name='status' component={SucessStatus} options={{header: ()=> null}}/>
+          <Stack.Screen  name='danger' component={DangerStatus} options={{header: ()=> null}}/>
           <Stack.Screen  name='fail' component={FailStatus} options={{header: ()=> null}}/>
           <Stack.Screen  name='symp_summary' component={SymptomSummary} options={{header: ()=> null}}/>
         </Stack.Navigator>
