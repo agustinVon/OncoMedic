@@ -25,16 +25,22 @@ export const PasswordField = ({setValue,failToggle}) =>{
             checkIfNotCapital(pass_aux)
             chechIfNumber(pass_aux)
             checkIfEightChar(pass_aux)
-            passwordIsValid && setValue(password)
         }
         else{
+            setPasswordIsValid(true)
             setValue(password)
         }
         
     }, [password])
 
     useEffect(()=>{
-        (oneMayusc && oneNotMayusc && oneNumber && eightChar) ? setPasswordIsValid(true):setPasswordIsValid(false)
+        if(oneMayusc && oneNotMayusc && oneNumber && eightChar && failToggle){
+            setPasswordIsValid(true)
+            setValue(password)
+        }
+        else{
+            setPasswordIsValid(false)
+        }
     },[oneMayusc,oneNotMayusc,oneNumber,eightChar])
 
     

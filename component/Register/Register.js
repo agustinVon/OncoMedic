@@ -15,6 +15,7 @@ import {PasswordField} from '../commonComponents/Fields/PasswordField'
 import {IncorrectField} from '../commonComponents/Fields/IncorrectField'
 import {MailField} from '../commonComponents/Fields/MailField'
 import Icon from 'react-native-vector-icons/AntDesign';
+import {hashPassword} from '../PasswordHash'
 
 
 const {width} = Dimensions.get("window")
@@ -40,16 +41,19 @@ const Register = ({navigation,setPersonalInformationAction}) => {
     
     
 
-    const handleSwitchToRegisterMedic = () =>{
+    const handleSwitchToRegisterMedic = async () =>{
         setFirstTry(false)
         if(name==='' || surname ==='' || password ===''|| email===''){
             CustomAlert('Error','Complete todos los campos')
         }
         else{
-            setPersonalInformationAction({name:name,surname:surname,email:email,gender:gender,birth:birth.toDateString(),password:password})
-            navigation.navigate("register_medic")
+            hashPassword(password, pushToRedux)
         }
-       
+    }
+
+    const pushToRedux = (hashedPassword) => {
+        setPersonalInformationAction({name:name,surname:surname,email:email,gender:gender,birth:birth.toDateString(),password:hashedPassword})
+        navigation.navigate("register_medic")
     }
 
     const notifyMessage = (msg) => {

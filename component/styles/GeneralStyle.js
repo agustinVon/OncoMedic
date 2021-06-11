@@ -220,5 +220,35 @@ export const GeneralStyle = StyleSheet.create({
         alignContent:'center',
         alignItems:'center',
         alignSelf:'center'
+    },
+
+    modal_background:{
+        backgroundColor:'#FFFFFF',
+        height:'40%',
+        width:'70%',
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center',
+        borderRadius:15,
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowColor:'#000000',
+        shadowOpacity:0.5,
+        shadowRadius:40
+    },
+
+    modal_title:{
+        fontSize:FontSizes.modalTitle,
+        color:Colors.violet,
+        textAlign:'center',
+    },
+
+    modal_text:{
+        marginLeft:10 , 
+        marginRight:10,
+        fontSize:FontSizes.registerQuerys,
+        textAlign:'center'
     }
 });

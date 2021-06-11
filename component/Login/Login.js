@@ -12,6 +12,7 @@ import {PasswordField} from '../commonComponents/Fields/PasswordField'
 import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import {CommonActions} from '@react-navigation/native';
 import {MailField} from '../commonComponents/Fields/MailField'
+import { hashPassword } from '../PasswordHash.js';
 
 
 const {width} = Dimensions.get("window")
@@ -36,39 +37,37 @@ const Login = ({navigation, setUser, logoutUser}) => {
     }
 
     const switchToHome = async () =>{
-
         setFirstTry(false)
-
         if(email !== '' || password !== ''){
-            setIsLoading(true)
-            var userData = null
-            const userCollection = firestore().collection('users')
-            await userCollection.get().then(
-                (snapshot) => {
-                    snapshot.forEach(doc => {
-                        if(email === doc.data().email && password === doc.data().password){
-                            userData = doc.data()
-                            console.log('has loaded')
-                        }  
-                    })
-                }).catch(
-                    err =>{
-                        CustomAlert(title='Error' , description='No se pudo conectar a base de datos')
-                        setIsLoading(false)
-                    }
-                )
-            if(userData == null){
-                CustomAlert(title='Error' , description='Usuario no existe o contraseña incorrecta')
-                setIsLoading(false)
-            }else if(userData.status === 'Pendiente'){
-                setIsLoading(false)
-                navigation.navigate('wait_screen')
-            }else{
-                setUser(userData)
-                setIsLoading(false)
-                navigation.navigate('home')
-            }   
+            hashPassword(password,login)
         }
+    }
+
+    const login = async (hashedPassword) =>{
+        const userCollection = firestore().collection('users')
+        await userCollection.where('email' , '==' , email).where('password' , '==' , hashedPassword).get().then(
+            (snapshot) => {
+                if(snapshot.size>0){
+                    snapshot.forEach(async (doc) =>{
+                        if(doc.data().status === 'Pendiente'){
+                            setIsLoading(false)
+                            navigation.navigate('wait_screen')
+                        }else{
+                            setUser(doc.data())
+                            setIsLoading(false)
+                            navigation.navigate('home')
+                            userCollection.doc(doc.id).update({
+                                lastConnection: new Date()
+                            })
+                        }   
+                    })
+                }
+                else{
+                    setIsLoading(false)
+                    CustomAlert('Error', 'Usuario o contraseña incorrecta')
+                }
+            }
+        )
     }
 
     return (
