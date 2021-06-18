@@ -12,6 +12,8 @@ import { BigSliderButtons } from '../commonComponents/Sliders/BigSliderButtons'
 import { BigSliderRadio } from '../commonComponents/Sliders/BigSliderRadio'
 import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import {setDbtInformationAction, setDbtOptionAction, setSmokeInformationAction, setSmokeOptionAction, setMedOptionAction} from '../../reduxStore/actions/registerAction'
+import { View } from 'react-native';
+import { Alert } from 'react-native';
 
 
 const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationAction, setDbtInformationAction, setMedOptionAction, setSmokeOptionAction,setDbtOptionAction}) => {
@@ -23,11 +25,13 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
     const [epoc, setEpoc] = useState(false)
     const [acv, setACV] = useState(false)
     const [inf, setInf] = useState(false)
+    const [smokeQntERR, setSmkERR] = useState(false)
+    const [alert,setAlert] = useState(false)
 
     const smokeOptions = [{label:'Fumo actualmente' ,value:1},
                         {label:'Fumaba', value:2},
                         {label: 'No', value:0}]
-    const smokeDetails = ['¿Cantidad de cigarrillos por dia?', '¿Cuantos meses fumaste?']
+    const smokeDetails = ['¿Cantidad de cigarrillos por dia?', '¿Cuantos años fumaste?']
     const dbtOptions= [{label:'Si', value:1},{label:'No', value:0}]   
     const meds = [{label:"Insulina",value:'Insulina'},
                 {label:"Metmorfina",value:"Metmorfina"},
@@ -46,6 +50,12 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
             time: sTime,
             qnt: sQnt
         })
+        if(sTime<=0 || sQnt <=0){
+            setSmkERR(true)
+        }
+        else{
+            setSmkERR(false)
+        }
     },[sQnt,sTime])
 
     useEffect(()=>{
@@ -69,8 +79,8 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
         swiper.current.scrollBy(1)
     }
 
-    const test =(value)=>{
-        console.log(value)
+    const goToWaitScreen = ()=>{
+        navigation.navigate('wait_screen')
     }
 
     return (
@@ -80,7 +90,11 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
                 image={require("../../img/ic_smoke.png")} setValue={setSmoke}
                 type={SliderType.register}/>
                     {
-                        smokeState != 0 && <BigSliderFields options={smokeDetails} setValue={[setQnt,setSmokeTime]} image={require("../../img/ic_smoke.png")} type={SliderType.register}/>
+                        smokeState != 0 && 
+                        <View>
+                            <BigSliderFields options={smokeDetails} setValue={[setQnt,setSmokeTime]} image={require("../../img/ic_smoke.png")} type={SliderType.register} keyboardTypes={'numeric'}/>
+                            
+                        </View>     
                     }
                 <SliderButtons options={dbtOptions} text={"¿TENES DIABETES?"}
                 image={require("../../img/ic_diabetic.png")} setValue={setDbt}
@@ -90,8 +104,8 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
                     }
 
                 <BigSliderRadio options={radio} setValue={[setHip,setEpoc,setACV,setInf]} image={require("../../img/ic_diabetic.png")}/>
-                <RegisterIllustrator goHomeFunction={() => navigation.navigate('wait_screen')}/>
-            </Swiper>            
+                <RegisterIllustrator goHomeFunction={goToWaitScreen} err={smokeQntERR}/>
+            </Swiper>           
     )
 }
 const mapStateToProps = (state) => {

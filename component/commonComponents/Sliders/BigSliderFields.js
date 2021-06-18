@@ -6,7 +6,7 @@ import {Colors} from '../../styles/Colors'
 import {SliderType} from './SliderType'
 import {InputField} from '../Fields/InputFieldTitle'
 
-export const BigSliderFields = ({options, image, setValue, type}) => {
+export const BigSliderFields = ({options, image, setValue, type, keyboardTypes= 'default'}) => {
     
     return(
 
@@ -19,7 +19,7 @@ export const BigSliderFields = ({options, image, setValue, type}) => {
                 resizeMode={'stretch'} 
                 source={type === SliderType.daily ? require('../../../img/day_deco.png') : require('../../../img/register_deco.png')}/>
             <View style={ GeneralStyle.big_slider_down_view }>
-                {options.map((option, index) => {return(<InputField key={index} title={option} setValue={setValue[index]}/>)})}
+                {options.map((option, index) => {return(<InputField key={index} title={option} setValue={setValue[index]} keyboardType={keyboardTypes}/>)})}
             </View>
         </View>
     )

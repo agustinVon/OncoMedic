@@ -8,7 +8,7 @@ import {ActivityIndicator} from 'react-native-paper';
 
 const {width} = Dimensions.get("window")
 
-const RegisterIllustrator = ({userData,goHomeFunction}) => {
+const RegisterIllustrator = ({userData,goHomeFunction,err}) => {
 
     const [disclaimer,setDisclaimer]=useState(false)
     const [isLoading,setLoading] = useState(false)
@@ -36,6 +36,10 @@ const RegisterIllustrator = ({userData,goHomeFunction}) => {
             })
     }
 
+    const checkERR= () =>{
+        err?CustomAlert('ERROR','Ingrese valores validos'):pushToDatabase(userData)
+    }
+
     return (
         <SafeAreaView style={RegisterIllustratorStyle.regilus_const_background}>
             <Pressable style={RegisterIllustratorStyle.regilus_const_background} onPress={()=>setDisclaimer(true)}>
@@ -60,7 +64,7 @@ const RegisterIllustrator = ({userData,goHomeFunction}) => {
                 }
                 
             </Pressable>
-            <DisclaimerModal visibility={disclaimer} setVisibility={setDisclaimer} contFunction={()=>pushToDatabase(userData)}/>
+            <DisclaimerModal visibility={disclaimer} setVisibility={setDisclaimer} contFunction={checkERR}/>
             
             
         </SafeAreaView>

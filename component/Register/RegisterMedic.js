@@ -14,6 +14,7 @@ import {connect} from 'react-redux'
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import {CustomPicker} from '../commonComponents/Pickers/CommonPicker'
 import zIndex from '@material-ui/core/styles/zIndex'
+import { Keyboard } from 'react-native'
 
 
 
@@ -75,10 +76,8 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
                 </View>
                 <Image style={RegisterUser.reguse_top_img} source={require("../../img/register_deco.png")}/>
             </View>        
-            <KeyboardAvoidingView
-            style={{flex:9, marginTop:50}}
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={Platform.OS==="ios" && 40}>
+            <View
+            style={{flex:9, marginTop:50}}>
                 <ScrollView  contentContainerStyle={RegisterUser.scroll} >    
                     <View style={RegisterUser.reguse_cont_regusein_inputs}>
                         <View style={{...(Platform.OS !== 'android' && {zIndex: 5000})}}>
@@ -103,12 +102,12 @@ const RegisterMedic =  ({navigation,setMedicalInformationAction}) => {
                         </View>
                         <View style={{marginTop: 25,alignSelf:'center'}}>
                             <Text style={RegisterUser.reguse_text_upinput}>Nro. historia medica</Text>
-                            <TextInput keyboardType={'numeric'} onChangeText={setId} value={id} maxLength={10} placeholder="Ingrese su historia medica" placeholderTextColor="#c4c4c4" style={RegisterUser.reguse_textInput }></TextInput>
+                            <TextInput onSubmitEditing={Keyboard.dismiss} keyboardType={'numeric'} onChangeText={setId} value={id} maxLength={10} placeholder="Ingrese su historia medica" placeholderTextColor="#c4c4c4" style={RegisterUser.reguse_textInput }></TextInput>
                         </View>
                         <ButtonCustomeOrange title={"Continuar"} handleFunction={handleSwitchToRegisterMedic} marginT={{marginTop: 50}}/>
                     </View>
                 </ScrollView>
-            </KeyboardAvoidingView>
+            </View>
         </SafeAreaView>
     )
 }

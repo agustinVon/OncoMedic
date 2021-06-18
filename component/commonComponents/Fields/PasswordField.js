@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react'
-import {View,TextInput} from 'react-native'
+import {View,TextInput, Keyboard} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {GeneralStyle} from '../../styles/GeneralStyle'
@@ -74,6 +74,7 @@ export const PasswordField = ({setValue,failToggle}) =>{
                 {console.log('password valid = '+passwordIsValid)}
                 <View style={pressed ? (passwordIsValid) ?  GeneralStyle.field_multiple: GeneralStyle.field_incorrect:GeneralStyle.field_multiple}>
                     <TextInput 
+                            onSubmitEditing={Keyboard.dismiss}
                             onFocus={()=>(setPressed(true))}
                             secureTextEntry={passwordIsHidden} 
                             onChangeText={setPassword}
