@@ -27,6 +27,7 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
     const [inf, setInf] = useState(false)
     const [smokeQntERR, setSmkERR] = useState(false)
     const [alert,setAlert] = useState(false)
+    const [smokeLocal,setSmokeLocal]=useState(false)
 
     const smokeOptions = [{label:'Fumo actualmente' ,value:1},
                         {label:'Fumaba', value:2},
@@ -46,14 +47,17 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
     },[medDbt])
 
     useEffect(()=>{
+        console.log('hola')
         setSmokeOptionAction({
             time: sTime,
             qnt: sQnt
         })
-        if(sTime<=0 || sQnt <=0){
+        if((sTime<=0 || sQnt <=0) && smokeLocal){
+            console.log('cambio')
             setSmkERR(true)
         }
         else{
+            console.log('fail')
             setSmkERR(false)
         }
     },[sQnt,sTime])
@@ -70,7 +74,15 @@ const Register_Swiper = ({navigation,smokeState,dbtState,setSmokeInformationActi
     const swiper = React.useRef(null);
 
     const setSmoke = (smoke) =>{
+        console.log(smoke)
         setSmokeInformationAction(smoke)
+        if(smoke===0){
+            setSmokeLocal(false)
+            setSmkERR(false)  
+        }
+        else{
+            setSmokeLocal(true)
+        }
         swiper.current.scrollBy(1);
     }
 
