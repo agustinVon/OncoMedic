@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "159937975234",
+    "project_id": "oncoback",
+    "storage_bucket": "oncoback.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159937975234:android:b6c3fb4f5279f271be3c5b",
+        "android_client_info": {
+          "package_name": "com.oncomedic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159937975234-lgoqm0elru2qammua5kvlmhf4tnf2k66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA16dIGZxtD-3aldPOf4CWLlQQ1LQMNobs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159937975234-lgoqm0elru2qammua5kvlmhf4tnf2k66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

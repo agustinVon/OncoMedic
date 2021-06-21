@@ -56,17 +56,6 @@ const Stack = createStackNavigator()
 
 const App: () => Node = () => {
 
-  firebase.initializeApp(firebaseConfig = {
-    apiKey: "AIzaSyDcinCzje9E9uwyxVhe3So1-Aa4jWmrV8s",
-    authDomain: "oncologia-austral.firebaseapp.com",
-    databaseURL: "https://oncologia-austral-default-rtdb.firebaseio.com",
-    projectId: "oncologia-austral",
-    storageBucket: "oncologia-austral.appspot.com",
-    messagingSenderId: "497357435658",
-    appId: "1:497357435658:web:5a1d7ed2d70cd665fc40f3",
-    measurementId: "G-9MTWR4YYV5"
-  })
-
   return (
     <NavigationContainer>
       <Provider store={store}>
