@@ -100,9 +100,9 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                             
                             <View style={{marginTop: 25, zIndex:40}}>
                                 <View>
-                                    <Text style={RegisterUser.reguse_text_upinput}>Género</Text>
+                                    <Text style={RegisterUser.reguse_text_upinput}>Sexo</Text>
                                     <View style={{marginTop:8}}>
-                                        <CustomPicker items={genderTypes} defaultValue={gender} setValue={setGender} placeHolder={'Seleccione su genero'}/>
+                                        <CustomPicker items={genderTypes} defaultValue={gender} setValue={setGender} placeHolder={'Seleccione su sexo'}/>
                                     </View>
                                 </View>
                                 
