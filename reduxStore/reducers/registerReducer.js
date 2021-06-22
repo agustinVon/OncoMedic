@@ -13,7 +13,7 @@ const default_user ={
     etnia:"",
     id:"",
     smoke:{
-        smoke:false,
+        smoke:0,
         time:"",
         qnt:"",
     },
