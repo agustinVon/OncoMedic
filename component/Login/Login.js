@@ -13,6 +13,7 @@ import {CustomAlert} from '../commonComponents/Alerts/Alert'
 import {CommonActions} from '@react-navigation/native';
 import {MailField} from '../commonComponents/Fields/MailField'
 import { hashPassword } from '../PasswordHash.js';
+import { FontSizes } from '../styles/Fonts.js';
 
 
 const {width} = Dimensions.get("window")
@@ -127,11 +128,15 @@ const Login = ({navigation, setUser, logoutUser}) => {
                         <Text>No tienes cuenta?</Text>
                         <Text style={LoginStyle.log_text_register}> Registrate!</Text>
                     </Pressable>
+                    <Pressable style={LoginStyle.log_cont_register} onPress={handleSwitchToRegister}>
+                        <Text>No tienes cuenta?</Text>
+                        <Text style={LoginStyle.log_text_register}> Registrate!</Text>
+                    </Pressable>
                 </View>
             </View>
             {isLoading && 
             <View style={LoginStyle.log_loading}>
-            <ActivityIndicator animating={true} color={"#FFFFFF"} size='large' />
+            <ActivityIndicator animating={true} color={"#FFFFFF"} size='large'/>
             </View>}
         </SafeAreaView>
         
@@ -245,6 +250,9 @@ const LoginStyle = StyleSheet.create({
         backgroundColor:"#FFFFFF",
         alignItems: 'center',
         alignSelf:'center'
+    },
+    emergency_button:{
+        fontSize:FontSizes.listItems
     }
 })
 
