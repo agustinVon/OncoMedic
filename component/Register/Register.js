@@ -43,6 +43,7 @@ const Register = ({navigation,setPersonalInformationAction}) => {
 
     const handleSwitchToRegisterMedic = async () =>{
         setFirstTry(false)
+        console.log('password on hash =' + password)
         if(name==='' || surname ==='' || password ===''|| email===''){
             CustomAlert('Error','Complete todos los campos')
         }
@@ -65,8 +66,8 @@ const Register = ({navigation,setPersonalInformationAction}) => {
                 {label: 'Otro', value:2}]
 
     return (
-        
         <SafeAreaView style={RegisterUser.reguse_cont_background}>
+            {console.log('password = '+password)}
             <View style={RegisterUser.reguse_top}>
                 <Image source={require("../../img/ic_user.png")}/>
                 <Text style={RegisterUser.reguse_text_top}>   DATOS USUARIO</Text>

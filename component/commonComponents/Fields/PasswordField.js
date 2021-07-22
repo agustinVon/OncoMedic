@@ -25,23 +25,33 @@ export const PasswordField = ({setValue,failToggle}) =>{
             checkIfNotCapital(pass_aux)
             chechIfNumber(pass_aux)
             checkIfEightChar(pass_aux)
+            checkPass()
+            console.log('PASS FAIL A')
         }
         else{
             setPasswordIsValid(true)
+            console.log('--------PASS SET-------')
             setValue(password)
         }
         
     }, [password])
 
     useEffect(()=>{
+        console.log('MAYUS = ',oneMayusc)
+        checkPass()
+    },[oneMayusc,oneNotMayusc,oneNumber,eightChar])
+
+    const checkPass = ()=>{
         if(oneMayusc && oneNotMayusc && oneNumber && eightChar && failToggle){
+            console.log('--------PASS SET-------')
             setPasswordIsValid(true)
             setValue(password)
         }
         else{
+            console.log('PASS FAIL B')
             setPasswordIsValid(false)
         }
-    },[oneMayusc,oneNotMayusc,oneNumber,eightChar])
+    }
 
     
     const checkIfCapital = (pass_aux) => {
@@ -70,7 +80,7 @@ export const PasswordField = ({setValue,failToggle}) =>{
 
     return(
             <View>
-                {console.log(password)}
+                {console.log('password = ',password)}
                 {console.log('password valid = '+passwordIsValid)}
                 <View style={pressed ? (passwordIsValid) ?  GeneralStyle.field_multiple: GeneralStyle.field_incorrect:GeneralStyle.field_multiple}>
                     <TextInput 

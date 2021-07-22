@@ -128,10 +128,6 @@ const Login = ({navigation, setUser, logoutUser}) => {
                         <Text>No tienes cuenta?</Text>
                         <Text style={LoginStyle.log_text_register}> Registrate!</Text>
                     </Pressable>
-                    <Pressable style={LoginStyle.log_cont_register} onPress={handleSwitchToRegister}>
-                        <Text>No tienes cuenta?</Text>
-                        <Text style={LoginStyle.log_text_register}> Registrate!</Text>
-                    </Pressable>
                 </View>
             </View>
             {isLoading && 
